@@ -2,8 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const Login = lazy(() => import("../pages/Login"));
-const SignUp = lazy(() => import("../pages/SignUp"));
-
+const SignUp = lazy(() => import("../pages/Signup"));
 
 const router = createBrowserRouter([
   {path: "/login", element: <Login />},

@@ -12,36 +12,35 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()  
-    setAlert(true)
-    setTimeout(setAlert(false), 3000)
+    
 
-    // try {
-    //   const response = await fetch('http://localhost:8000/auth/signup', {
-    //     method: 'POST',
-    //     body: JSON.stringify({ username, email, password }),
-    //     headers: { 'Content-Type': 'application/json' },
-    //   })
+    try {
+      const response = await fetch('http://localhost:8000/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify({ username, email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      })
 
-    //   if (!response.ok) {
-    //     if (response.status === 404) {
-    //       console.log("Eamil already exists.")
-    //       setAlert(true)
-    //       setTimeout(setAlert(false), 3000)
-    //       setErrorMessage("Eamil already exists.")
-    //     } else {
-    //       console.log("Something went wrong!");
-    //       setAlert(true)
-    //       setTimeout(setAlert(false), 3000)
-    //       setErrorMessage("Something went wrong!");
-    //     }
-    //   } else {
-    //     const data = await response.json()
-    //     console.log(data.token)
-    //     navigate('/login')
-    //   }
-    // } catch (error) {
-    //   console.log(error)
-    // }
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.log("Eamil already exists.")
+          setAlert(true)
+          setTimeout(() => setAlert(false), 5000)
+          setErrorMessage("Eamil already exists.")
+        } else {
+          console.log("Something went wrong!");
+          setAlert(true)
+          setTimeout(() => setAlert(false), 5000)
+          setErrorMessage("Something went wrong!");
+        }
+      } else {
+        const data = await response.json()
+        console.log(data.token)
+        navigate('/login')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -137,7 +136,7 @@ const Signup = () => {
           Sign up
         </button>
         <div className="text-center mt-5 text-sm text-blue-500 hover:text-blue-700 cursor-pointer">
-          <a href="/signup" >
+          <a href="/login" >
             Already have an account?
           </a>
         </div>
