@@ -6,52 +6,55 @@ const Signup = () => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [alert, setAlert] = useState(true)
-  const [errorMessage, setErrorMessage] = useState("false")
+  const [alert, setAlert] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("Message")
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()  
+    setAlert(true)
+    setTimeout(setAlert(false), 3000)
 
-    try {
-      const response = await fetch('http://localhost:8000/auth/signup', {
-        method: 'POST',
-        body: JSON.stringify({ username, email, password }),
-        headers: { 'Content-Type': 'application/json' },
-      })
+    // try {
+    //   const response = await fetch('http://localhost:8000/auth/signup', {
+    //     method: 'POST',
+    //     body: JSON.stringify({ username, email, password }),
+    //     headers: { 'Content-Type': 'application/json' },
+    //   })
 
-      if (!response.ok) {
-        if (response.status === 404) {
-          console.log("Eamil already exists.")
-          setAlert(true)
-          setTimeout(setAlert(false), 3000)
-          setErrorMessage("Eamil already exists.")
-        } else {
-          console.log("Something went wrong!");
-          setAlert(true)
-          setTimeout(setAlert(false), 3000)
-          setErrorMessage("Something went wrong!");
-        }
-      } else {
-        const data = await response.json()
-        console.log(data.token)
-        navigate('/login')
-      }
-    } catch (error) {
-      console.log(error)
-    }
+    //   if (!response.ok) {
+    //     if (response.status === 404) {
+    //       console.log("Eamil already exists.")
+    //       setAlert(true)
+    //       setTimeout(setAlert(false), 3000)
+    //       setErrorMessage("Eamil already exists.")
+    //     } else {
+    //       console.log("Something went wrong!");
+    //       setAlert(true)
+    //       setTimeout(setAlert(false), 3000)
+    //       setErrorMessage("Something went wrong!");
+    //     }
+    //   } else {
+    //     const data = await response.json()
+    //     console.log(data.token)
+    //     navigate('/login')
+    //   }
+    // } catch (error) {
+    //   console.log(error)
+    // }
   }
 
   return (
     <>
-    {alert && (
-      <div class="flex p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+    {alert? (
+      <div className="flex p-4 my-5 mx-4 w-1/2 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
         <svg aria-hidden="true" className="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
         <div>
           {errorMessage}
         </div>
       </div>
-    )}
+    ) : <div></div>}
+    
     <div className="flex justify-center py-10 items-center bg-white">
       <form className="bg-white mt-10" onSubmit={handleSubmit}>
         <h1 className="text-gray-800 font-bold text-2xl mb-10 text-center">
@@ -134,7 +137,7 @@ const Signup = () => {
           Sign up
         </button>
         <div className="text-center mt-5 text-sm text-blue-500 hover:text-blue-700 cursor-pointer">
-          <a href="/signup" className="">
+          <a href="/signup" >
             Already have an account?
           </a>
         </div>
