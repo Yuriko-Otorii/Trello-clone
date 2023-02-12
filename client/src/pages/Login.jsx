@@ -26,7 +26,7 @@ const Login = () => {
         else console.log('Something went wrong...')
       } else {
         const data = await response.json()
-        console.log(data)
+        // console.log(data)
         dispatch(setAuth(data))
         navigate('/dashboard')
       }

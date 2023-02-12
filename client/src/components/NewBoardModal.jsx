@@ -5,11 +5,25 @@ const NewBoardModal = ({ setShowNewBoardModal }) => {
     const [boardTitle, setBoardTitle] = useState("")
     const user = useSelector((state) => state.auth.user)
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault()
-      console.log(boardTitle);
-      console.log(user.userId)
-      setShowNewBoardModal(false)
+
+      try {
+        const response = await fetch('http://localhost:8000/dashboard/saveboard', {
+          method: 'POST',
+          body: JSON.stringify({ boardTitle, createdUser: user.userId }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+
+        if (!response.ok) {
+          console.log('Something went wrong...')
+        } else {
+          setShowNewBoardModal(false)
+          setAllboads()
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
 
   return (
@@ -29,7 +43,7 @@ const NewBoardModal = ({ setShowNewBoardModal }) => {
             </svg>
           </button>
         </div>
-        <form action='' method='POST' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <div className="px-6 py-4 flex-auto">
             <label className="block text-gray-700 text-sm font-bold mb-2">
                 Board title

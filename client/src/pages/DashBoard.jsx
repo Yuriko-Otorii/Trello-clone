@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
 import Board from '../components/Board'
 import HamburgerMenu from '../components/HamburgerMenu'
@@ -8,7 +9,28 @@ import NewTaskModal from '../components/NewTaskModal';
 const DashBoard = () => {
     const [showNewBoardModal, setShowNewBoardModal] = useState(false);
     const [showNewTaskModal, setShowNewTaskModal] = useState(false);
+    const [allBoards, setAllboads] = useState([])
+    const user = useSelector((state) => state.auth.user)
     
+    useEffect(() => {
+        const fetchAllBoards = async () => {
+          const response = await fetch("http://localhost:8000/dashboard/getallboards", {
+            method: 'POST',
+            body: JSON.stringify({ userId: user.userId }),
+            headers: { 'Content-Type': 'application/json' },
+          })
+          if (!response.ok) {
+            console.log('Something went wrong...')
+          } else {
+            const result = await response.json()
+            setAllboads(result)
+          }
+        }
+
+        fetchAllBoards()
+      }, [])
+
+
     const handleNewBoard = () => {
         setShowNewBoardModal(true)
     }
@@ -34,9 +56,12 @@ const DashBoard = () => {
             </div>
             <div className='flex  items-center'>
                 <div className='flex flex-col gap-4 w-full pt-3 md:flex-row md:w-fit'>
-                    <Board key={1} setShowNewTaskModal={setShowNewTaskModal}/>
-                    <Board key={2} setShowNewTaskModal={setShowNewTaskModal}/>
-                    <Board key={3} setShowNewTaskModal={setShowNewTaskModal}/>
+                {allBoards.length > 0 && (
+                    allBoards.map(eachBoard => <Board key={eachBoard._id} boardInfo={eachBoard} setShowNewTaskModal={setShowNewTaskModal}/>)
+                )}
+                    {/* <Board key={1} setShowNewTaskModal={setShowNewTaskModal}/> */}
+                    {/* <Board key={2} setShowNewTaskModal={setShowNewTaskModal}/>
+                    <Board key={3} setShowNewTaskModal={setShowNewTaskModal}/> */}
                     {/* <Board key={4}/>
                     <Board key={5}/> */}
                 </div>

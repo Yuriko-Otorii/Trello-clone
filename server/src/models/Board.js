@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const { Schema, model } = mongoose
+const { Schema, model, SchemaTypes } = mongoose
 
 const boardSchema = new Schema({
     boardTitle: {type: String, trim: true, required: true},
-    tasks: [{ type: ObjectId }],
-    createdUser: [{ type: ObjectId }],
+    tasks: [{ type: SchemaTypes.ObjectId }],
+    createdUser: { type: SchemaTypes.ObjectId },
 },
 {
     timestamps: true,
