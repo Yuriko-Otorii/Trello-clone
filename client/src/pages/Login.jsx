@@ -1,12 +1,13 @@
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-
+import { useDispatch } from "react-redux"
+import { setAuth } from '../redux/slicers/authSlice';
 
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,8 +27,10 @@ const Login = () => {
       } else {
         const data = await response.json()
         console.log(data)
-        navigate('/signup')
+        dispatch(setAuth(data))
+        navigate('/dashboard')
       }
+
     } catch (error) {
       console.log(error)
     }

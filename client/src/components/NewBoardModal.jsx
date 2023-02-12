@@ -1,12 +1,15 @@
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 const NewBoardModal = ({ setShowNewBoardModal }) => {
     const [boardTitle, setBoardTitle] = useState("")
-
+    const user = useSelector((state) => state.auth.user)
+    
     const handleSubmit = (e) => {
-        e.preventDefault()
-        console.log(boardTitle);
-        setShowNewBoardModal(false)
+      e.preventDefault()
+      console.log(boardTitle);
+      console.log(user.userId)
+      setShowNewBoardModal(false)
     }
 
   return (

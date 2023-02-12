@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useSelector } from 'react-redux'
 import Datepicker from "react-tailwindcss-datepicker";
 
 
@@ -7,6 +8,7 @@ const NewTaskModal = ({ setShowNewTaskModal }) => {
     const [taskDescription, setTaskDescription] = useState("")
     const [dueDate, setDueDate] = useState(new Date());
     const [isChecked, setIsChecked] = useState(false)
+    const user = useSelector((state) => state.auth.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -14,6 +16,7 @@ const NewTaskModal = ({ setShowNewTaskModal }) => {
         console.log({taskDescription});
         console.log({dueDate});
         console.log({isChecked});
+        console.log({user});
         setShowNewTaskModal(false)
     }
 
