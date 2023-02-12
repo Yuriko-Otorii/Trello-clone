@@ -8,6 +8,7 @@ const taskSchema = new Schema({
     taskNote: {type: String},
     priority: {b: boolean},
     dueDate: {type: Date},
+    belongedBoard: { type: ObjectId },
     updatedDate: {type: Date, default: Date.now}
 },
 {

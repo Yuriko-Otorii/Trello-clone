@@ -3,7 +3,7 @@ import TaskCard from './TaskCard'
 
 const Board = () => {
   return (
-    <div className='py-3 px-4 m-auto rounded-lg shadow-lg w-4/5 h-fit bg-gray-200 md:w-80'>
+    <div className='py-3 px-4 m-auto rounded-lg shadow-lg w-11/12 h-fit bg-gray-200 md:w-80'>
         <div className='flex flex-col'>
             <div className='flex justify-between items-center'>
                 <h2 className='font-bold text-xl ml-1'>Board title</h2>
