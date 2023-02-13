@@ -12,6 +12,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@reduxjs/toolkit": "^1.9.2",
+    "dayjs": "^1.11.7",
     "flowbite": "^1.6.3",
     "flowbite-react": "^0.3.8",
     "install": "^0.13.0",

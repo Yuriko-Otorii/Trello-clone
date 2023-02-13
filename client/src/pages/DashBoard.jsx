@@ -43,7 +43,7 @@ const DashBoard = () => {
         <div className='w-full flex flex-col z-40'>
             <div className='flex justify-between items-center'>
                 <div className='md:hidden'></div>
-                <div className=''>
+                <div className='md:order-2'>
 
                 </div>
                 <div className='md:order-1'>

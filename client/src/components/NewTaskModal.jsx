@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
-import Datepicker from "react-tailwindcss-datepicker";
 import DatePicker from "../components/DatePicker"
 
 const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {

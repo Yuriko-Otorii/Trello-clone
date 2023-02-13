@@ -15,6 +15,14 @@ exports.saveNewBoard = async (data) => {
     }
 }
 
+exports.deleteBoard = async (data) => {
+    try {
+        await Board.deleteOne({_id: data.boardId })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.saveNewTask = async (data) => {
     const newTask = new Task(data)
     
