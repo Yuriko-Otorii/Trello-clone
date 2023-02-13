@@ -131,7 +131,8 @@ const Signup = () => {
         </div>
         <button
           type="submit"
-          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2"
+          disabled={!(email && password && username)}
+          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25"
         >
           Sign up
         </button>

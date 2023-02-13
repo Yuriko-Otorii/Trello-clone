@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { setAuth } from '../redux/slicers/authSlice';
@@ -8,6 +8,11 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const inputRef = useRef(null)
+
+  useEffect(() => {
+    inputRef.current.focus()
+  })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -26,7 +31,7 @@ const Login = () => {
         else console.log('Something went wrong...')
       } else {
         const data = await response.json()
-        // console.log(data)
+        console.log(data)
         dispatch(setAuth(data))
         navigate('/dashboard')
       }
@@ -62,6 +67,7 @@ const Login = () => {
             placeholder="Email Address"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
+            ref={inputRef}
           />
         </div>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
@@ -88,7 +94,8 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2"
+          disabled={!(email && password)}
+          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25"
         >
           Login
         </button>

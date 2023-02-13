@@ -36,7 +36,7 @@ const DashBoard = () => {
       }, [updatestate])
 
   return (
-    <div className="flex relative h-full min-h-screen w-fit min-w-full md:h-screen p-4">
+    <div className="flex relative h-full min-h-screen w-fit min-w-full md:h-fit p-4">
         <div
             className="overlay absolute inset-0 z-0 bg-gradient-to-r from-teal-400 to-yellow-200 opacity-20"
         ></div>

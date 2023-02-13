@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
 import Datepicker from "react-tailwindcss-datepicker";
-
+import DatePicker from "../components/DatePicker"
 
 const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState(new Date());
     const [isChecked, setIsChecked] = useState(false)
     const user = useSelector((state) => state.auth.user)
 
     useEffect(() => {
-
+        console.log(boardId);
     }, [])
 
     const handleSubmit = async (e) => {
@@ -69,7 +69,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
             </svg>
           </button>
         </div>
-        <form action='' method='POST' onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div className="px-6 py-4 flex-auto">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                     Task title
@@ -96,22 +96,17 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                     Due date
                 </label>
-                <Datepicker 
-                    value={dueDate}
-                    onChange={(e) => setDueDate(e)}
-                    useRange={false}
-                    asSingle={true} 
-                    inputClassName="shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                />
+                <DatePicker dueDate={dueDate} setDueDate={setDueDate} />
                 <label className="block text-gray-700 text-sm font-bold ml-2 mt-5 flex items-end">
-                    <input type="checkbox" value={isChecked} onChange={() => setIsChecked? setIsChecked(false): setIsChecked(true)} className="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                    <input type="checkbox" value={isChecked} onChange={() => setIsChecked(!isChecked)} className="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                     High priority
                 </label>
             </div>
             <div className="flex items-center justify-end p-4 border-t border-solid border-slate-200 rounded-b">
             <button
-                className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="submit"
+                disabled={!(taskTitle && taskDescription)}
+                className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
             >
                 Save
             </button>

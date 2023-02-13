@@ -1,11 +1,14 @@
-import React from 'react'
+import dayjs from 'dayjs'
 
 const TaskCard = ({ taskInfo }) => {
+    const date = dayjs(taskInfo.dueDate)
+    const formattedDate = date.format("YYYY-MM-DD")
+
   return (
     <div className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 bg-white'>
         <div className='flex flex-col'>
             <div className='flex justify-between items-baseline my-1'>
-                <p className='text-xs text-gray-500'>Due date: {taskInfo.dueDate}</p>
+                <p className='text-xs text-gray-500'>Due date: {formattedDate}</p>
                 {taskInfo.priority && (
                     <p className='text-sm py-0.5 px-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>
                 )}
