@@ -15,11 +15,14 @@ const NewBoardModal = ({ setShowNewBoardModal }) => {
           headers: { 'Content-Type': 'application/json' },
         })
 
+        console.log({response});
+
         if (!response.ok) {
           console.log('Something went wrong...')
         } else {
+          console.log({response});
+          console.log("Response ok");
           setShowNewBoardModal(false)
-          setAllboads()
         }
       } catch (error) {
         console.log(error);

@@ -1,23 +1,51 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
 import Datepicker from "react-tailwindcss-datepicker";
 
 
-const NewTaskModal = ({ setShowNewTaskModal }) => {
+const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
-    const [dueDate, setDueDate] = useState(new Date());
+    const [dueDate, setDueDate] = useState("");
     const [isChecked, setIsChecked] = useState(false)
     const user = useSelector((state) => state.auth.user)
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+
+    }, [])
+
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log({taskTitle});
-        console.log({taskDescription});
-        console.log({dueDate});
-        console.log({isChecked});
-        console.log({user});
-        setShowNewTaskModal(false)
+
+        try {
+            const response = await fetch('http://localhost:8000/dashboard/savetask', {
+              method: 'POST',
+              body: JSON.stringify({ taskTitle, taskDescription, dueDate: dueDate.startDate, priority: isChecked, createdUser: user.userId, belongedBoard: boardId }),
+              headers: { 'Content-Type': 'application/json' },
+            })
+    
+            if (!response.ok) {
+                console.log('Something went wrong...')
+            } else {
+                setShowNewTaskModal((prev) => ({
+                    ...prev,
+                    modalState: false
+                }))
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+
+        // console.log({taskTitle});
+        // console.log({taskDescription});
+        // console.log({dueDate});
+        // console.log({isChecked});
+        // console.log({user});
+        setShowNewTaskModal((prev) => ({
+            ...prev,
+            modalState: false
+        }))
     }
 
 
@@ -31,7 +59,10 @@ const NewTaskModal = ({ setShowNewTaskModal }) => {
           <h3 className="text-2xl font-semibold">New task</h3>
           <button
             className="p-1 ml-auto bg-transparent border-0 text-gray-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-            onClick={() => setShowNewTaskModal(false)}
+            onClick={() => setShowNewTaskModal((prev) => ({
+                    ...prev,
+                    modalState: false
+                }))}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
