@@ -2,8 +2,8 @@ const Board = require('../models/Board')
 const Task = require('../models/Task')
 
 exports.getAllBoards = async (data) => {
-    const allBoards = await Board.find({createdUser: data.userId}).populate("tasks")
-    return allBoards
+    return await Board.find({createdUser: data.userId}).populate("tasks")
+     
 }
 
 exports.saveNewBoard = async (data) => {
@@ -18,6 +18,14 @@ exports.saveNewBoard = async (data) => {
 exports.deleteBoard = async (data) => {
     try {
         await Board.deleteOne({_id: data.boardId })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.getTaskDetail = async (data) => {
+    try {
+        return await Task.findOne({_id: data.taskId})
     } catch (error) {
         console.log(error);
     }

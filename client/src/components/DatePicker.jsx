@@ -138,7 +138,7 @@ const DatePicker = ({ dueDate, setDueDate }) => {
         </div>
         {showDatepicker && (
           <div
-            className="bg-white mt-12 rounded-lg shadow p-2 absolute bottom-10 left-0 z-50 border border-gray-200"
+            className="bg-white mt-5 rounded-lg shadow p-4 absolute bottom-10 left-0 z-50 border border-gray-200"
             style={{ width: '17rem' }}
           >
             <div className="flex justify-between items-center mb-2">

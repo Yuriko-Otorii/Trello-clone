@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useSelector } from 'react-redux'
 import DatePicker from "../components/DatePicker"
 
@@ -8,10 +8,6 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
     const [dueDate, setDueDate] = useState(new Date());
     const [isChecked, setIsChecked] = useState(false)
     const user = useSelector((state) => state.auth.user)
-
-    useEffect(() => {
-        console.log(boardId);
-    }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -35,12 +31,6 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
             console.log(error);
           }
 
-
-        // console.log({taskTitle});
-        // console.log({taskDescription});
-        // console.log({dueDate});
-        // console.log({isChecked});
-        // console.log({user});
         setShowNewTaskModal((prev) => ({
             ...prev,
             modalState: false
@@ -102,13 +92,13 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
                 </label>
             </div>
             <div className="flex items-center justify-end p-4 border-t border-solid border-slate-200 rounded-b">
-            <button
-                type="submit"
-                disabled={!(taskTitle && taskDescription)}
-                className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
-            >
-                Save
-            </button>
+              <button
+                  type="submit"
+                  disabled={!(taskTitle && taskDescription)}
+                  className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
+              >
+                  Save
+              </button>
             </div>
         </form>
       </div>

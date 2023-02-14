@@ -1,18 +1,47 @@
-const { getAllBoards, saveNewBoard, saveNewTask, deleteBoard } = require('../middlewares/dashBoard.service')
+const { getAllBoards, saveNewBoard, saveNewTask, deleteBoard, getTaskDetail } = require('../middlewares/dashBoard.service')
 
 exports.getAllBoardsController = async (req, res, next) => {
+  try {
     const allBoards = await getAllBoards(req.body)
-    res.json(allBoards)
+    return res.send({error: false, allBoards})
+  } catch (error) {
+    console.log(erro);
+  }
 }
 
 exports.saveNewBoardController = async (req, res, next) => {
-  await saveNewBoard(req.body)
+  try {
+    await saveNewBoard(req.body)
+    return res.send({error: false})
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 exports.deleteBoardController = async (req, res, next) => {
-  await deleteBoard(req.body)
+  try {
+    await deleteBoard(req.body)
+    return res.send({error: false})
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+exports.getTaskDetailController = async (req, res, next) => {
+  try {
+    const taskDetail = await getTaskDetail(req.body)
+    // console.log({taskDetail});
+    return res.send({error: false, taskDetail})
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 exports.saveNewTaskController = async (req, res, next) => {
-    await saveNewTask(req.body)
+    try {
+      await saveNewTask(req.body)
+      return res.send({error: false})
+    } catch (error) {
+      console.log(error);
+    }
 }
