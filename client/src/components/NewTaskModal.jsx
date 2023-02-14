@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useSelector } from 'react-redux'
 import DatePicker from "../components/DatePicker"
 
-const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
+const NewTaskModal = ({ setShowNewTaskModal, boardId, updateState, setUpdateState }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
     const [dueDate, setDueDate] = useState(new Date());
@@ -26,6 +26,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
                     ...prev,
                     modalState: false
                 }))
+                setUpdateState(!updateState)
             }
           } catch (error) {
             console.log(error);

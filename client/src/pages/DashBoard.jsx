@@ -18,7 +18,7 @@ const DashBoard = () => {
     modalState: false,
   })
   const [allBoards, setAllboads] = useState([])
-  const [updatestate, setUpdateState] = useState(false)
+  const [updateState, setUpdateState] = useState(false)
   const user = useSelector((state) => state.auth.user)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const DashBoard = () => {
     }
 
     fetchAllBoards()
-  }, [updatestate])
+  }, [updateState])
 
   return (
     <div className="flex relative h-full min-h-screen w-fit min-w-full md:h-fit p-4">
@@ -63,6 +63,8 @@ const DashBoard = () => {
                   boardInfo={eachBoard}
                   setShowNewTaskModal={setShowNewTaskModal}
                   setShowDetailModal={setShowDetailModal}
+                  setUpdateState={setUpdateState}
+                  updateState={updateState}
                 />
               ))}
           </div>
@@ -117,6 +119,7 @@ const DashBoard = () => {
       {showNewBoardModal && (
         <NewBoardModal
           setShowNewBoardModal={setShowNewBoardModal}
+          updateState={updateState}
           setUpdateState={setUpdateState}
         />
       )}
@@ -124,6 +127,7 @@ const DashBoard = () => {
         <NewTaskModal
           setShowNewTaskModal={setShowNewTaskModal}
           boardId={showNewTaskModal.boardId}
+          updateState={updateState}
           setUpdateState={setUpdateState}
         />
       )}
@@ -131,6 +135,8 @@ const DashBoard = () => {
         <DetailPageModal
           setShowDetailModal={setShowDetailModal}
           taskId={showDetailModal.taskId}
+          updateState={updateState}
+          setUpdateState={setUpdateState}
         />
       )}
     </div>

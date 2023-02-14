@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 
-const NewBoardModal = ({ setShowNewBoardModal }) => {
+const NewBoardModal = ({ setShowNewBoardModal, setUpdateState, updateState }) => {
     const [boardTitle, setBoardTitle] = useState("")
     const user = useSelector((state) => state.auth.user)
     
@@ -23,6 +23,7 @@ const NewBoardModal = ({ setShowNewBoardModal }) => {
           console.log({response});
           console.log("Response ok");
           setShowNewBoardModal(false)
+          setUpdateState(!updateState)
         }
       } catch (error) {
         console.log(error);

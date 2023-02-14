@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import TaskCard from './TaskCard'
 
-const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal }) => {
+const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal, setUpdateState, updateState }) => {
     const [isTitleEdit, setIsTitleEdit] = useState(false)
     const [boardTitle, setBoardTitle] = useState(boardInfo.boardTitle)
 
@@ -23,14 +23,11 @@ const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal }) => {
                   body: JSON.stringify({ boardId }),
                   headers: { 'Content-Type': 'application/json' },
                 })
-        
-                console.log({response});
-        
+                
                 if (!response.ok) {
                   console.log('Something went wrong...')
                 } else {
-                  console.log({response});
-                  console.log("Response ok");
+                    setUpdateState(!updateState)
                 }
               } catch (error) {
                 console.log(error);
