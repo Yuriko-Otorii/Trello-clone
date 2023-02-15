@@ -5,7 +5,8 @@ const {
   deleteBoard,
   getTaskDetail,
   saveTaskComment,
-  updateBoardTitle
+  updateBoardTitle,
+  deleteTask
 } = require('../middlewares/dashBoard.service')
 
 exports.getAllBoardsController = async (req, res, next) => {
@@ -65,6 +66,15 @@ exports.saveNewTaskController = async (req, res, next) => {
 exports.saveTaskCommentController = async (req, res, next) => {
   try {
     await saveTaskComment(req.body)
+    return res.send({ error: false })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.deleteTaskController  = async (req, res, next) => {
+  try {
+    await deleteTask(req.body)
     return res.send({ error: false })
   } catch (error) {
     console.log(error)

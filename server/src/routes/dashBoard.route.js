@@ -7,7 +7,8 @@ const {
   deleteBoardController,
   getTaskDetailController,
   saveTaskCommentController,
-  updateBoardTitleController
+  updateBoardTitleController,
+  deleteTaskController
 } = require('../controllers/dashBoard.controller')
 
 
@@ -18,5 +19,6 @@ router.post('/deleteboard', deleteBoardController)
 router.post('/gettaskdetail', getTaskDetailController)
 router.post('/savetask', saveNewTaskController)
 router.post('/savecomment', saveTaskCommentController)
+router.post('/deletetask', deleteTaskController)
 
 module.exports = router

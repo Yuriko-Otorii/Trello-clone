@@ -59,6 +59,13 @@ exports.saveTaskComment = async (data) => {
         await Task.findOneAndUpdate({_id: data.belongedTask}, {"$push": {taskComments: response._id}}, { new: true })
     } catch (error) {
         console.log(error);
+    }
+}
 
+exports.deleteTask = async (data) => {
+    try {
+        await Task.deleteOne({_id: data.taskId })
+    } catch (error) {
+        console.log(error);
     }
 }
