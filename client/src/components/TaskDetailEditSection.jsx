@@ -4,14 +4,13 @@ import dayjs from 'dayjs'
 
 import DatePicker from "./DatePicker"
 
-const TaskDetailEditSection = ({ taskDetail, setIsEdit }) => {
+const TaskDetailEditSection = ({ taskDetail, setIsEdit, setInfoState, infoState }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
     const [dueDate, setDueDate] = useState(new Date());
     const [isChecked, setIsChecked] = useState("")
 
     useEffect(()=> {
-        console.log({taskDetail});
         setTaskTitle(taskDetail.taskTitle)
         setTaskDescription(taskDetail.taskDescription)
         setIsChecked(taskDetail.priority)
@@ -20,13 +19,13 @@ const TaskDetailEditSection = ({ taskDetail, setIsEdit }) => {
         const formattedDueDate = dueDateFromdb.format("YYYY-MM-DD")
         setDueDate(new Date(formattedDueDate))
 
-        console.log({isChecked});
     }, []) 
 
     const handleTaskDetailSubmit = (e) => {
         e.preventDefault()
   
         setIsEdit(false)
+        setInfoState(!infoState)
       }
       
       const handleEditCancel = () => {

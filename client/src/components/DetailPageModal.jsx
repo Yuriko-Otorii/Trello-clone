@@ -72,7 +72,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
       <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full m-2 p-4 md:w-1/2 bg-white outline-none focus:outline-none overflow-y-scroll">
         <div>
           {isEdit
-            ? (<TaskDetailEditSection taskDetail={taskInfo} setIsEdit={setIsEdit} />)
+            ? (<TaskDetailEditSection taskDetail={taskInfo} setIsEdit={setIsEdit} setInfoState={setInfoState} infoState={infoState} />)
             : (<div>
                   <div className="flex items-start justify-between rounded-t mb-3">
                     <div className="flex flex-col">                      
@@ -93,7 +93,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
                         onClick={() => setShowDetailModal(false)}
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </button>
                     </div>
