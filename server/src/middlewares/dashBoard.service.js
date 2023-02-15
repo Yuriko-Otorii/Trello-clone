@@ -52,6 +52,19 @@ exports.saveNewTask = async (data) => {
     }
 }
 
+exports.updateTask = async (data) => {
+    try {
+        const targetTask = await Task.findById(data.taskId)
+        targetTask.taskTitle = data.taskTitle
+        targetTask.taskDescription = data.taskDescription
+        targetTask.dueDate = data.dueDate
+        targetTask.priority = data.isChecked
+        await targetTask.save()
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.saveTaskComment = async (data) => {
     try {
         const newTaskComment = new TaskComment(data)

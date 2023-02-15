@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import TaskDetailEditSection from "./TaskDetailEditSection"
 
 
-const DetailPageModal = ({ setShowDetailModal, taskId, setUpdateState, updateState  }) => {
+const DetailPageModal = ({ setShowDetailModal, taskId, setUpdateState, updateState }) => {
     const [taskInfo, setTaskInfo] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [comment, setComment] = useState("")
@@ -93,7 +93,14 @@ const DetailPageModal = ({ setShowDetailModal, taskId, setUpdateState, updateSta
       <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full m-2 p-4 md:w-1/2 bg-white outline-none focus:outline-none overflow-y-scroll">
         <div>
           {isEdit
-            ? (<TaskDetailEditSection taskDetail={taskInfo} setIsEdit={setIsEdit} setInfoState={setInfoState} infoState={infoState} />)
+            ? (<TaskDetailEditSection
+                taskDetail={taskInfo}
+                setIsEdit={setIsEdit}
+                setInfoState={setInfoState}
+                infoState={infoState}
+                setUpdateState={setUpdateState}
+                updateState={updateState}
+             />)
             : (<div>
                   <div className="flex items-start justify-between rounded-t mb-3">
                     <div className="flex flex-col">                      

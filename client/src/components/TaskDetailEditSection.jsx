@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 
 import DatePicker from "./DatePicker"
 
-const TaskDetailEditSection = ({ taskDetail, setIsEdit, setInfoState, infoState }) => {
+const TaskDetailEditSection = ({ taskDetail, setIsEdit, setInfoState, infoState, setUpdateState, updateState }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
     const [dueDate, setDueDate] = useState(new Date());
@@ -21,11 +21,27 @@ const TaskDetailEditSection = ({ taskDetail, setIsEdit, setInfoState, infoState 
 
     }, []) 
 
-    const handleTaskDetailSubmit = (e) => {
+    const handleTaskDetailSubmit = async (e) => {
         e.preventDefault()
-  
-        setIsEdit(false)
-        setInfoState(!infoState)
+
+        try {
+            const response = await fetch('http://localhost:8000/dashboard/updatetask', {
+            method: 'POST',
+            body: JSON.stringify({ taskTitle, taskDescription, dueDate, isChecked, taskId: taskDetail._id }),
+            headers: { 'Content-Type': 'application/json' },
+            })
+
+            if (!response.ok) {
+                console.log('Something went wrong...')
+            } else {
+                setIsEdit(false)
+                setInfoState(!infoState)
+                setUpdateState(!updateState)
+            }            
+        } catch (error) {
+            console.log(error);
+        }   
+        
       }
       
       const handleEditCancel = () => {

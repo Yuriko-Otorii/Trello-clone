@@ -8,7 +8,8 @@ const {
   getTaskDetailController,
   saveTaskCommentController,
   updateBoardTitleController,
-  deleteTaskController
+  deleteTaskController,
+  updateTaskController
 } = require('../controllers/dashBoard.controller')
 
 
@@ -18,6 +19,7 @@ router.post('/updateboardtitle', updateBoardTitleController)
 router.post('/deleteboard', deleteBoardController)
 router.post('/gettaskdetail', getTaskDetailController)
 router.post('/savetask', saveNewTaskController)
+router.post('/updatetask', updateTaskController)
 router.post('/savecomment', saveTaskCommentController)
 router.post('/deletetask', deleteTaskController)
 
