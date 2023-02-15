@@ -17,7 +17,7 @@ const TaskCard = ({ taskInfo, setShowDetailModal }) => {
   return (
     <div className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 bg-white w-80 md:w-auto' onClick={() => handleShowDetailPage(taskInfo._id)}>
         <div className='flex flex-col'>
-            <div className='flex justify-between items-baseline my-1'>
+            <div className='flex justify-between items-center my-1 h-7'>
                 <p className='text-xs text-gray-500'>Due date: {formattedDate}</p>
                 {taskInfo.priority && (
                     <p className='text-sm py-0.5 px-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>

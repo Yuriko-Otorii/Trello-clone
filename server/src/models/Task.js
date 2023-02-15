@@ -5,7 +5,7 @@ const { Schema, model, SchemaTypes } = mongoose
 const taskSchema = new Schema({
     taskTitle: {type: String, required: true},
     taskDescription: {type: String, required: true},
-    taskComments: [{type: SchemaTypes.ObjectId, ref: "User"}],
+    taskComments: [{type: SchemaTypes.ObjectId, ref: "TaskComment"}],
     taskNote: {type: String},
     priority: {type: Schema.Types.Boolean},
     dueDate: {type: Date},

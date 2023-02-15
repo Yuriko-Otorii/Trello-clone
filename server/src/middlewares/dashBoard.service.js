@@ -1,5 +1,6 @@
 const Board = require('../models/Board')
 const Task = require('../models/Task')
+const TaskComment = require('../models/TaskComment')
 
 exports.getAllBoards = async (data) => {
     return await Board.find({createdUser: data.userId}).populate("tasks")
@@ -39,5 +40,17 @@ exports.saveNewTask = async (data) => {
         await Board.findOneAndUpdate({_id: data.belongedBoard}, {"$push": {tasks: response._id}}, { new: true })
     } catch (error) {
         console.log(error);
+    }
+}
+
+exports.saveTaskComment = async (data) => {
+    const newTaskComment = new TaskComment(data)
+    
+    try {
+        const response = await newTaskComment.save()
+        await Task.findOneAndUpdate({_id: data.belongedTask}, {"$push": {taskComments: response._id}}, { new: true })
+    } catch (error) {
+        console.log(error);
+
     }
 }

@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux'
 
 import dayjs from 'dayjs'
 
-import TaskDetailEditPage from "./TaskDetailEditPage"
+import TaskDetailEditSection from "./TaskDetailEditSection"
 
 
 const DetailPageModal = ({ setShowDetailModal, taskId }) => {
-    const [taskDetail, setTaskDetail] = useState([])
+    const [taskInfo, setTaskInfo] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [comment, setComment] = useState("")
+    const [infoState, setInfoState] = useState(false)
     const user = useSelector((state) => state.auth.user)
 
     useEffect(() => {
@@ -26,23 +27,40 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
                 console.log('Something went wrong...')
               } else {
                 const result = await response.json()
-                setTaskDetail(result.taskDetail)
-                console.log(result.taskDetail);
+                setTaskInfo(result.taskDetail)
+                // console.log(result.taskDetail.taskComments)
               }
         }
         fetchDetailInfo()
-    }, [])
 
-    const dueDateFromdb = dayjs(taskDetail.dueDate)
+        
+    }, [infoState])
+
+    const dueDateFromdb = dayjs(taskInfo.dueDate)
     const formattedDueDate = dueDateFromdb.format("YYYY-MM-DD")
-    const updatedDate = dayjs(taskDetail.updatedDate)
+    const updatedDate = dayjs(taskInfo.updatedDate)
     const formattedUpdatedDate = updatedDate.format("YYYY-MM-DD")
 
     
 
-    const handleCommentSubmit = (e) => {
+    const handleCommentSubmit = async (e) => {
       e.preventDefault()
+      try {
+        const response = await fetch('http://localhost:8000/dashboard/savecomment', {
+          method: 'POST',
+          body: JSON.stringify({ postedUser: user.userId, commentBody: comment, belongedTask: taskDetail._id }),
+          headers: { 'Content-Type': 'application/json' },
+        })
 
+        if (!response.ok) {
+            console.log('Something went wrong...')
+        } else {
+          setIsEdit(false)
+          setInfoState(!infoState)
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
 
 
@@ -54,23 +72,22 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
       <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full m-2 p-4 md:w-1/2 bg-white outline-none focus:outline-none overflow-y-scroll">
         <div>
           {isEdit
-            ? (<TaskDetailEditPage taskDetail={taskDetail} setIsEdit={setIsEdit} />)
+            ? (<TaskDetailEditSection taskDetail={taskInfo} setIsEdit={setIsEdit} />)
             : (<div>
                   <div className="flex items-start justify-between rounded-t mb-3">
-                    <div className="flex flex-col">
-                      <div className="flex items-center">
-                        <h3 className="text-2xl font-semibold mr-2">{taskDetail.taskTitle}</h3>
-                        <svg onClick={() => setIsEdit(true)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-blue-400 hover:text-blue-700">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                        </svg>
+                    <div className="flex flex-col">                      
+                      <div className="flex items-baseline mt-3">
+                        {taskInfo.priority && (
+                          <p className='text-sm text-center w-16 py-0.5 px-2 py-0.5 mr-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>
+                        )}
+                        <p className="text-xs text-gray-500">Due date: {formattedDueDate}</p>
                       </div>
-                      <p className="text-xs text-gray-500">Due date: {formattedDueDate}</p>
+                      <div className="flex items-center">
+                        <h3 className="text-2xl font-semibold mr-2">{taskInfo.taskTitle}</h3>                      
+                      </div>
                     </div>
 
                     <div className="flex items-center">
-                      {taskDetail.priority && (
-                        <p className='text-sm text-center w-16 py-0.5 px-2 py-0.5 mr-4 text-red-400 border border-red-400 rounded-lg'>Priority</p>
-                      )}
                       <button
                         className="p-1 ml-auto bg-transparent border-0 text-gray-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                         onClick={() => setShowDetailModal(false)}
@@ -82,14 +99,19 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
                     </div>
                   </div>
                   <div className="mb-5">
-                      <p className="text-lg">{taskDetail.taskDescription}</p>
+                      <p className="text-lg">{taskInfo.taskDescription}</p>
                   </div>    
+                  <div className="flex justify-end">
+                    <svg onClick={() => setIsEdit(true)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-blue-400 hover:text-blue-700">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                    </svg>
+                  </div>
                 </div>
           )}          
-          <div className="">
+          <div className="mt-5">
               <p className="text-xs text-gray-500">Comment</p>
-              {taskDetail.taskComments && 
-                  taskDetail.taskComments.map(eachComment => {
+              {taskInfo.taskComments && 
+                taskInfo.taskComments.map(eachComment => {
                     <div className="flex items-start mt-2 bg-gray-100 rounded-lg p-2">  
                       <div className="inline w-fit">
                           <div className="flex items-center">        
@@ -112,7 +134,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
                     </div>
                   })
               }
-              <div className="flex items-start mt-2 bg-gray-100 rounded-lg p-2">  
+              {/* <div className="flex items-start mt-2 bg-gray-100 rounded-lg p-2">  
                   <div className="inline w-fit">
                       <div className="flex items-center">        
                           <div className="flex justify-between">
@@ -124,13 +146,14 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
                       </div>     
                       Each comment 
                   </div>
-              </div>
+              </div> */}
               
               <form onSubmit={handleCommentSubmit}>
                 <textarea 
                   rows="2"
                   className="block p-2.5 mt-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write your comments here" 
+                  name="commentBody"
                   value={comment} 
                   onChange={(e) => setComment(e.target.value)} 
                 />

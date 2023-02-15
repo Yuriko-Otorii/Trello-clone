@@ -2,15 +2,16 @@ import { useEffect, useState } from 'react'
 
 import dayjs from 'dayjs'
 
-import DatePicker from "../components/DatePicker"
+import DatePicker from "./DatePicker"
 
-const TaskDetailEditPage = ({ taskDetail, setIsEdit }) => {
+const TaskDetailEditSection = ({ taskDetail, setIsEdit }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
     const [dueDate, setDueDate] = useState(new Date());
     const [isChecked, setIsChecked] = useState("")
 
     useEffect(()=> {
+        console.log({taskDetail});
         setTaskTitle(taskDetail.taskTitle)
         setTaskDescription(taskDetail.taskDescription)
         setIsChecked(taskDetail.priority)
@@ -49,6 +50,7 @@ const TaskDetailEditPage = ({ taskDetail, setIsEdit }) => {
                 <textarea 
                     className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     type="text"
+                    rows="4"
                     name="taskDescription"
                     placeholder="Task description"
                     onChange={(e) => setTaskDescription(e.target.value)}
@@ -92,4 +94,4 @@ const TaskDetailEditPage = ({ taskDetail, setIsEdit }) => {
   )
 }
 
-export default TaskDetailEditPage
+export default TaskDetailEditSection

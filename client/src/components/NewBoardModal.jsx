@@ -77,3 +77,6 @@ const NewBoardModal = ({ setShowNewBoardModal, setUpdateState, updateState }) =>
 }
 
 export default NewBoardModal
+
+
+// https://zenn.dev/matamatanot/articles/7572dccafbc96d

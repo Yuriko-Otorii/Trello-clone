@@ -36,7 +36,7 @@ const DashBoard = () => {
       } else {
         const result = await response.json()
         setAllboads(result.allBoards)
-        console.log(result.allBoards)
+        // console.log(result.allBoards)
       }
     }
 

@@ -31,11 +31,6 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId, updateState, setUpdateStat
           } catch (error) {
             console.log(error);
           }
-
-        setShowNewTaskModal((prev) => ({
-            ...prev,
-            modalState: false
-        }))
     }
 
 
