@@ -1,3 +1,4 @@
+const User = require('../models/User')
 const Board = require('../models/Board')
 const Task = require('../models/Task')
 const TaskComment = require('../models/TaskComment')
@@ -36,7 +37,14 @@ exports.deleteBoard = async (data) => {
 
 exports.getTaskDetail = async (data) => {
     try {
-        return await Task.findOne({_id: data.taskId})
+        const taskWithCommentRef = await Task.findOne({_id: data.taskId}).populate("taskComments").lean()
+        const taskCommentwithUserInfo = await Promise.all(taskWithCommentRef.taskComments.map(async (eachTaskComment) => {
+            const userDetail = await User.findOne({_id: eachTaskComment.postedUser}).lean()
+            return {...eachTaskComment, username: userDetail.username, userId: userDetail._id}
+        }))
+        taskWithCommentRef.taskComments = taskCommentwithUserInfo
+        console.log({taskComment: taskWithCommentRef.taskComments});
+        return taskWithCommentRef
     } catch (error) {
         console.log(error);
     }
