@@ -1,10 +1,14 @@
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { setDashboardState } from "../redux/slicers/dashboardSlice"
 
 import TaskCard from './TaskCard'
 
-const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal, setUpdateState, updateState }) => {
+const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal }) => {
     const [isTitleEdit, setIsTitleEdit] = useState(false)
     const [boardTitle, setBoardTitle] = useState(boardInfo.boardTitle)
+    const dispatch = useDispatch()
 
     const handleBoardTitleSubmit = async (e) => {
         e.preventDefault()
@@ -20,7 +24,7 @@ const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal, setUpdateSt
                 console.log('Something went wrong...')
             } else {
                 setIsTitleEdit(false)
-                setUpdateState(!updateState)
+                dispatch(setDashboardState())
             }            
         } catch (error) {
             console.log(error);
@@ -48,7 +52,7 @@ const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal, setUpdateSt
                 if (!response.ok) {
                   console.log('Something went wrong...')
                 } else {
-                    setUpdateState(!updateState)
+                    dispatch(setDashboardState())
                 }
               } catch (error) {
                 console.log(error);

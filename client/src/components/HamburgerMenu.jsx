@@ -25,12 +25,12 @@ const HamburgerMenu = () => {
               <li>
                 <a href="#" className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Dash board</a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#" className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Search</a>
               </li>
               <li>
                 <a href="#" className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Filter</a>
-              </li>
+              </li> */}
             </ul>
           </div>        
         }

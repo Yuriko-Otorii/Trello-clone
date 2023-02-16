@@ -1,9 +1,12 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-const NewBoardModal = ({ setShowNewBoardModal, setUpdateState, updateState }) => {
+import { setDashboardState } from "../redux/slicers/dashboardSlice"
+
+const NewBoardModal = ({ setShowNewBoardModal }) => {
     const [boardTitle, setBoardTitle] = useState("")
     const user = useSelector((state) => state.auth.user)
+    const dispatch = useDispatch()
     
     const handleSubmit = async (e) => {
       e.preventDefault()
@@ -19,7 +22,7 @@ const NewBoardModal = ({ setShowNewBoardModal, setUpdateState, updateState }) =>
           console.log('Something went wrong...')
         } else {
           setShowNewBoardModal(false)
-          setUpdateState(!updateState)
+          dispatch(setDashboardState())
         }
       } catch (error) {
         console.log(error);

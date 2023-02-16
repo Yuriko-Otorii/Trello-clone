@@ -1,12 +1,15 @@
 import { useState } from "react"
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import DatePicker from "../components/DatePicker"
 
-const NewTaskModal = ({ setShowNewTaskModal, boardId, updateState, setUpdateState }) => {
+import { setDashboardState } from "../redux/slicers/dashboardSlice"
+
+const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
     const [taskTitle, setTaskTitle] = useState("")
     const [taskDescription, setTaskDescription] = useState("")
     const [dueDate, setDueDate] = useState(new Date());
     const [isChecked, setIsChecked] = useState(false)
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.auth.user)
 
     const handleSubmit = async (e) => {
@@ -26,8 +29,8 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId, updateState, setUpdateStat
                     ...prev,
                     modalState: false
                 }))
-                setUpdateState(!updateState)
-            }
+                dispatch(setDashboardState())
+              }
           } catch (error) {
             console.log(error);
           }
