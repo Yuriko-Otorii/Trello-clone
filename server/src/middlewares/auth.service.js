@@ -4,8 +4,9 @@ const bcrypt = require('bcrypt')
 
 const User = require('../models/User')
 const Token = require('../models/Token')
-const {jwtSecret, salt} = require("../config/config")
-
+// const {jwtSecret, salt} = require("../config/config")
+const jwtSecret = process.env.JWT_SECRET
+const salt = Number(process.env.SALT)
 
 const signUp = async (data) => {
     const { email } = data

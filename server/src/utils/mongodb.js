@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const config = require("../config/config")
+require('dotenv').config()
 
-const connect = mongoose.connect(config.databaseURL, { dbName: config.databaseName })
+const connect = mongoose.connect(process.env.MONGODB_URI, { dbName: process.env.MONGODB_DBNAME })
 connect.then(() => console.log("Connected to DB")).catch(err => console.error(err))

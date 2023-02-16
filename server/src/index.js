@@ -3,9 +3,9 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 require('express-async-errors');
 
-require('./src/utils/mongodb')
-const authRoute = require('./src/routes/auth.route');
-const dashBoardRoute = require('./src/routes/dashBoard.route');
+require('./utils/mongodb')
+const authRoute = require('./routes/auth.route');
+const dashBoardRoute = require('./routes/dashBoard.route');
 
 const app = express()
 
