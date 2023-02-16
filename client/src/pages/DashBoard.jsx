@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 import Board from '../components/Board'
 import DetailPageModal from '../components/DetailPageModal'
 import HamburgerMenu from '../components/HamburgerMenu'
