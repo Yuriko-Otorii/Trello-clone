@@ -118,20 +118,20 @@ const TaskDetailEditSection = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-end">
-        <button
-          type="submit"
-          onClick={() => setIsEdit(false)}
-          className="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 focus:ring-4 focus:outline-none hover:shadow-lg focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 mr-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-        >
-          Cansel
-        </button>
+      <div className="flex items-center justify-end gap-2">
         <button
           type="submit"
           disabled={!(taskTitle && taskDescription)}
           className="bg-blue-400 text-white active:bg-blue-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg hover:bg-blue-600 outline-none focus:outline-none ease-linear transition-all duration-150 disabled:opacity-50"
         >
           Save
+        </button>
+        <button
+          type="button"
+          onClick={() => setIsEdit(false)}
+          className="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 focus:ring-4 focus:outline-none hover:shadow-lg focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 mr-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+        >
+          Cansel
         </button>
       </div>
     </form>

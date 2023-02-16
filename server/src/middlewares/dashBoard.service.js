@@ -43,7 +43,6 @@ exports.getTaskDetail = async (data) => {
             return {...eachTaskComment, username: userDetail.username, userId: userDetail._id}
         }))
         taskWithCommentRef.taskComments = taskCommentwithUserInfo
-        console.log({taskComment: taskWithCommentRef.taskComments});
         return taskWithCommentRef
     } catch (error) {
         console.log(error);
