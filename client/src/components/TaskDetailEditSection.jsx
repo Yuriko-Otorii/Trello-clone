@@ -118,7 +118,7 @@ const TaskDetailEditSection = ({
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end gap-2 ">
         <button
           type="submit"
           disabled={!(taskTitle && taskDescription)}

@@ -37,6 +37,7 @@ exports.deleteBoard = async (data) => {
 
 exports.getTaskDetail = async (data) => {
     try {
+        // const taskWithCommentRef = await Task.findOne({_id: data.taskId}).populate({path: "postedUser", populate: {path: "User"}})
         const taskWithCommentRef = await Task.findOne({_id: data.taskId}).populate("taskComments").lean()
         const taskCommentwithUserInfo = await Promise.all(taskWithCommentRef.taskComments.map(async (eachTaskComment) => {
             const userDetail = await User.findOne({_id: eachTaskComment.postedUser}).lean()
@@ -44,6 +45,8 @@ exports.getTaskDetail = async (data) => {
         }))
         taskWithCommentRef.taskComments = taskCommentwithUserInfo
         return taskWithCommentRef
+        // console.log({taskWithCommentRef});
+        // return taskWithCommentRef
     } catch (error) {
         console.log(error);
     }
@@ -105,6 +108,23 @@ exports.deleteTaskComment = async (data) => {
     try {
         await TaskComment.deleteOne({_id: data.tasCommentkId })
         await Task.findOneAndUpdate({_id: data.taskId}, {"$pull": {taskComments: data.tasCommentkId}})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.updateTaskOrder = async (data) => {
+    try {
+        await Board.findOneAndUpdate({_id: data.boardId}, { $set: { tasks: data.newTaskList }})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.updateTaskOrderBetween = async (data) => {
+    try {
+        await Board.findOneAndUpdate({_id: data.startBoardId}, { $set: { tasks: data.startTaskList }})
+        await Board.findOneAndUpdate({_id: data.endBoardId}, { $set: { tasks: data.endTaskList }})
     } catch (error) {
         console.log(error);
     }

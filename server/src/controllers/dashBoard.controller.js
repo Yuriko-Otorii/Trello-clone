@@ -9,7 +9,10 @@ const {
   deleteTask,
   updateTask,
   updateTaskComment,
-  deleteTaskComment
+  deleteTaskComment,
+  updateTaskOrder,
+  updateTaskOrderBetween,
+  updateBoardOrder
 } = require('../middlewares/dashBoard.service')
 
 exports.getAllBoardsController = async (req, res, next) => {
@@ -105,6 +108,33 @@ exports.updateTaskCommentController = async (req, res, next) => {
 exports.deleteTaskCommentController = async (req, res, next) => {
   try {
     await deleteTaskComment(req.body)
+    return res.send({ error: false })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.updateTaskOrderController  = async (req, res, next) => {
+  try {
+    await updateTaskOrder(req.body)
+    return res.send({ error: false })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.updateTaskOrderBetweenController  = async (req, res, next) => {
+  try {
+    await updateTaskOrderBetween(req.body)
+    return res.send({ error: false })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.updateBoardOrderController  = async (req, res, next) => {
+  try {
+    await updateBoardOrder(req.body)
     return res.send({ error: false })
   } catch (error) {
     console.log(error)
