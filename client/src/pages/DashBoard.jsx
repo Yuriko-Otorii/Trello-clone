@@ -17,6 +17,7 @@ const DashBoard = () => {
   })
   const [showDetailModal, setShowDetailModal] = useState({
     taskId: null,
+    boardId: null,
     modalState: false,
   })
   const [allBoards, setAllboads] = useState([])
@@ -154,6 +155,7 @@ const DashBoard = () => {
         <DetailPageModal
           setShowDetailModal={setShowDetailModal}
           taskId={showDetailModal.taskId}
+          boardId={showDetailModal.boardId}          
           updateState={updateState}
           setUpdateState={setUpdateState}
         />

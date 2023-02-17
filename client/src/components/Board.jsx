@@ -100,7 +100,14 @@ const Board = ({ setShowNewTaskModal, boardInfo, setShowDetailModal }) => {
                     
             </div>
             {boardInfo.tasks.length > 0 && (
-                boardInfo.tasks.map(eachTask => <TaskCard key={eachTask._id} taskInfo={eachTask} setShowDetailModal={setShowDetailModal} />)
+                boardInfo.tasks.map(eachTask => (
+                    <TaskCard
+                        key={eachTask._id}
+                        taskInfo={eachTask} 
+                        boardId={boardInfo._id}
+                        setShowDetailModal={setShowDetailModal}                
+                    />
+                ))
             )}
             <div className='flex justify-center mt-7'>
                 <button onClick={() => handleNewTask(boardInfo._id)} type='button' className='flex w-1/2 items-center justify-center inline-block p-1 border-2 border-gray-400 text-gray-500 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out'>

@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import dayjs from 'dayjs'
 
-const TaskCard = ({ taskInfo, setShowDetailModal }) => {
+const TaskCard = ({ taskInfo, boardId, setShowDetailModal }) => {
 
     const date = dayjs(taskInfo.dueDate)
     const formattedDate = date.format("YYYY-MM-DD")
@@ -10,6 +10,7 @@ const TaskCard = ({ taskInfo, setShowDetailModal }) => {
     const handleShowDetailPage = (taskId) => {
         setShowDetailModal({
             taskId: taskId,
+            boardId: boardId,
             modalState: true
         })
     }

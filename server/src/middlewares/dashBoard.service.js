@@ -74,7 +74,8 @@ exports.updateTask = async (data) => {
 
 exports.deleteTask = async (data) => {
     try {
-        await Task.deleteOne({_id: data.taskId })
+        await Task.deleteOne({ _id: data.taskId })
+        await Board.findOneAndUpdate({_id: data.boardId}, {"$pull": {tasks: data.taskId}})
     } catch (error) {
         console.log(error);
     }
