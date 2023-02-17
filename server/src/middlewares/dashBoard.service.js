@@ -72,6 +72,14 @@ exports.updateTask = async (data) => {
     }
 }
 
+exports.deleteTask = async (data) => {
+    try {
+        await Task.deleteOne({_id: data.taskId })
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 exports.saveTaskComment = async (data) => {
     try {
         const newTaskComment = new TaskComment(data)
@@ -82,9 +90,20 @@ exports.saveTaskComment = async (data) => {
     }
 }
 
-exports.deleteTask = async (data) => {
+exports.updateTaskComment = async (data) => {
     try {
-        await Task.deleteOne({_id: data.taskId })
+        const targetTaskComment = await TaskComment.findById(data.taskCommentId)
+        targetTaskComment.commentBody = data.taskCommentBody
+        await targetTaskComment.save()
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.deleteTaskComment = async (data) => {
+    try {
+        await TaskComment.deleteOne({_id: data.tasCommentkId })
+        await Task.findOneAndUpdate({_id: data.taskId}, {"$pull": {taskComments: data.tasCommentkId}})
     } catch (error) {
         console.log(error);
     }

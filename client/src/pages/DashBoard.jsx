@@ -27,6 +27,7 @@ const DashBoard = () => {
   useEffect(() => {
     const fetchAllBoards = async () => {
       const response = await fetch(
+        // `https://task-manager-kymn.onrender.com/dashboard/getallboards`,
         'http://localhost:8000/dashboard/getallboards',
         {
           method: 'POST',
@@ -39,13 +40,12 @@ const DashBoard = () => {
       } else {
         const result = await response.json()
         setAllboads(result.allBoards)
+        // console.log(result.allBoards);
       }
     }
 
-
     fetchAllBoards()
   }, [dashBoardState])
-  // }, [updateState])
 
   return (
     <div className="flex relative h-full min-h-screen w-fit min-w-full md:h-fit p-4">
@@ -59,6 +59,27 @@ const DashBoard = () => {
           </div>
         </div>
         <div className="flex items-center">
+          {/* <DragDropContext onDragEnd={result => onDragEnd(result, columns, setColumns)} >
+            <Container>
+              <TaskColumnStyles>
+                {allBoards.length > 0 && 
+                  allBoards.map((eachBoard, index) => (
+                    <Droppable 
+                      key={eachBoard._id}
+                      droppableId={eachBoard._id}
+                      {provided => (
+                        <TaskList></TaskList>
+                      )}
+                    >
+
+                    </Droppable>
+                  ))
+
+                }
+              </TaskColumnStyles>
+            </Container>
+          </DragDropContext> */}
+
           <div className="flex items-start flex-col gap-4 w-full pt-3 md:flex-row md:w-fit">
             {allBoards.length > 0 &&
               allBoards.map((eachBoard) => (
@@ -92,7 +113,7 @@ const DashBoard = () => {
               </svg>
               New board
             </button>
-          </div>
+          </div>          
         </div>
         <div className="flex justify-center mt-10 md:hidden">
           <button

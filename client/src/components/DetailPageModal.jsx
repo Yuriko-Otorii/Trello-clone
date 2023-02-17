@@ -86,9 +86,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
       } catch (error) {
         console.log(error);
       }
-    }
-
-    
+    }    
 
 
   return (
@@ -146,7 +144,13 @@ const DetailPageModal = ({ setShowDetailModal, taskId }) => {
               <p className="text-xs text-gray-500">Comment</p>
               {taskInfo.hasOwnProperty('taskComments') && taskInfo.taskComments.length > 0 && 
                 taskInfo.taskComments.map(eachComment => (
-                  <EachComment eachComment={eachComment} key={eachComment._id} />              
+                  <EachComment
+                    key={eachComment._id}              
+                    eachComment={eachComment}
+                    taskId={taskInfo._id}
+                    setInfoState={setInfoState}
+                    infoState={infoState}
+                  /> 
                 ))
               }
               
