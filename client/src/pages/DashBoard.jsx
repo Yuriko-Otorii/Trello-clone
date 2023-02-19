@@ -11,8 +11,8 @@ import NewTaskModal from '../components/NewTaskModal'
 
 import { setDashboardState } from "../redux/slicers/dashboardSlice"
 import NewProjectModal from '../components/NewProjectModal';
-import ProjectsDropdown from '../components/ProjectsDropdown';
 import ToolBar from '../components/ToolBar';
+import ProjectsDropdown from '../components/ProjectsDropdown';
 
 
 const DashBoard = () => {
@@ -30,6 +30,7 @@ const DashBoard = () => {
   const [project, setProject] = useState([])
   const [projects, setProjects] = useState([])
   const [projectId, setProjectId] = useState(null)
+  const [filterValue, setFilterValue] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [updateState, setUpdateState] = useState(false)
   const user = useSelector((state) => state.auth.user)
@@ -37,14 +38,15 @@ const DashBoard = () => {
   const dashBoardState = useSelector((state) => state.dashboard.dashboardState)
 
   useEffect(() => {
-    const fetchAllBoards = async (projectId) => {
+    const fetchAllBoards = async (projectId, selectedValue) => {
+      console.log({selectedValue});
       try {
         const response = await fetch(
           // `https://task-manager-kymn.onrender.com/dashboard/getallboards`,
           'http://localhost:8000/dashboard/getallboards',
           {
             method: 'POST',
-            body: JSON.stringify({ projectId, userId: user.userId }),
+            body: JSON.stringify({ projectId, userId: user.userId, selectedValue }),
             headers: { 'Content-Type': 'application/json' },
           },
         )
@@ -62,10 +64,11 @@ const DashBoard = () => {
       }
     }
     setIsLoading(true)
-    fetchAllBoards(projectId)
+    fetchAllBoards(projectId, filterValue)
   }, [dashBoardState])
 
 
+  //Drag and drop logics
   const onDragEnd = async (result) => {
       const { destination, source, type } = result
       const startIndex = source.index
@@ -176,8 +179,13 @@ const DashBoard = () => {
             <div className="flex items-center px-5 py-2 hidden md:flex">
               {project && 
                 <div className='text-gray-600 text-2xl mr-4'>{project.projectTitle}</div>
-              }          
-              <ToolBar projects={projects} setProjectId={setProjectId} />
+              }
+              <div className='flex'>
+                <ProjectsDropdown  projects={projects} setProjectId={setProjectId} />
+                {project && 
+                  <ToolBar setFilterValue={setFilterValue}/>
+                }
+              </div>
             </div>
             {project && 
             <>
@@ -267,5 +275,3 @@ const DashBoard = () => {
 
 export default DashBoard
 
-
-//flex items-center justify-center flex-col gap-4 w-full md:flex-row md:items-start md:w-fit

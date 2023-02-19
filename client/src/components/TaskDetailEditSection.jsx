@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-
-import dayjs from 'dayjs'
 
 import DatePicker from './DatePicker'
 import { setDashboardState } from "../redux/slicers/dashboardSlice"
@@ -13,21 +11,11 @@ const TaskDetailEditSection = ({
   setInfoState,
   infoState
 }) => {
-  const [taskTitle, setTaskTitle] = useState('')
-  const [taskDescription, setTaskDescription] = useState('')
-  const [dueDate, setDueDate] = useState(new Date())
-  const [isChecked, setIsChecked] = useState(false)
+  const [taskTitle, setTaskTitle] = useState(taskDetail.taskTitle)
+  const [taskDescription, setTaskDescription] = useState(taskDetail.taskDescription)
+  const [dueDate, setDueDate] = useState(new Date(taskDetail.dueDate))
+  const [isChecked, setIsChecked] = useState(taskDetail.priority)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    setTaskTitle(taskDetail.taskTitle)
-    setTaskDescription(taskDetail.taskDescription)
-    setIsChecked(taskDetail.priority)
-
-    const dueDateFromdb = dayjs(taskDetail.dueDate)
-    const formattedDueDate = dueDateFromdb.format('YYYY-MM-DD')
-    setDueDate(new Date(formattedDueDate))
-  }, [])
 
 
   const handleTaskDetailSubmit = async (e) => {

@@ -17,7 +17,44 @@ exports.getAllBoards = async (data) => {
         }))
         fetchProjectwithBoards.boards = fetchBoardsWithTasks
     }
-    return fetchProjectwithBoards
+
+    if(data.selectedValue){
+        const today = new Date()         
+        const weekAhead = new Date(new Date().setDate(new Date().getDate() + 7))            
+        if(data.selectedValue === "priority"){
+            fetchProjectwithBoards.boards.map(eachBoard => {
+                const newTaskList = eachBoard.tasks.filter(eachTask => eachTask.priority)
+                return eachBoard.tasks = newTaskList                
+            })
+            return fetchProjectwithBoards
+
+        }else if(data.selectedValue === "dueToday"){
+            fetchProjectwithBoards.boards.map(eachBoard => {
+                const newTaskList = eachBoard.tasks.filter(eachTask => {
+                    const dueDate = new Date(eachTask.dueDate).toDateString()
+                    return dueDate === today.toDateString()
+                })
+                return eachBoard.tasks = newTaskList
+            })
+            return fetchProjectwithBoards
+
+        }else if(data.selectedValue === "dueThisWeek"){
+            fetchProjectwithBoards.boards.map(eachBoard => {
+                const newTaskList = eachBoard.tasks.filter(eachTask => {
+                    const dueDate = new Date(eachTask.dueDate)
+                    return dueDate >= today && dueDate <= weekAhead
+                })
+                return eachBoard.tasks = newTaskList
+            })
+            return fetchProjectwithBoards
+        }else if(data.selectedValue === "all"){
+            return fetchProjectwithBoards
+        }
+    }else{
+        console.log("else");
+        return fetchProjectwithBoards
+    }
+
 }
 
 exports.saveNewBoard = async (data) => {

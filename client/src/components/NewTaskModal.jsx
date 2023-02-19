@@ -18,7 +18,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
         try {
             const response = await fetch('http://localhost:8000/dashboard/savetask', {
               method: 'POST',
-              body: JSON.stringify({ taskTitle, taskDescription, dueDate: dueDate.startDate, priority: isChecked, createdUser: user.userId, belongedBoard: boardId }),
+              body: JSON.stringify({ taskTitle, taskDescription, dueDate: dueDate, priority: isChecked, createdUser: user.userId, belongedBoard: boardId }),
               headers: { 'Content-Type': 'application/json' },
             })
     
