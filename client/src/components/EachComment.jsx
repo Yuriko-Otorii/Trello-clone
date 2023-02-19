@@ -75,7 +75,7 @@ const EachComment = ({ eachComment, taskId, setInfoState, infoState }) => {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-0.5 text-gray-700">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <p className="font-bold mr-2 inline w-fit">{eachComment.username}</p>
+                <p className="font-bold mr-2 inline w-fit md:text-lg">{eachComment.username}</p>
                 </div>    
                 {eachComment.postedUser === user.userId &&
                 <div className='flex gap-1'>
@@ -92,7 +92,7 @@ const EachComment = ({ eachComment, taskId, setInfoState, infoState }) => {
             ? <form onSubmit={handleCommentupdate}>
                 <textarea 
                 rows="2"
-                className="block py-1.5 px-2 mt-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="block py-1.5 px-2 mt-3 w-full text-sm md:text-lg text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 name="editCommentBody"
                 value={editComment} 
                 onChange={(e) => setEditComment(e.target.value)} 
@@ -113,7 +113,7 @@ const EachComment = ({ eachComment, taskId, setInfoState, infoState }) => {
                 </button>
                 </div>                              
             </form>
-            :<p>{eachComment.commentBody}</p>
+            :<p className='md:text-lg'>{eachComment.commentBody}</p>
             }                          
         </div>
     </div>

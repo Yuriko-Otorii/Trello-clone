@@ -17,16 +17,9 @@ const MainRouter = () => {
   return (
     <Suspense
         fallback={
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <h1 style={{ textAlign: "center", margin: "2rem auto" }}>
-              Loading...
-            </h1>
+          <div className="flex justify-center items-center">
+            <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full" role="status">
+            </div>
           </div>
         }
       >    

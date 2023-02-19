@@ -1,33 +1,34 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { setDashboardState } from "../redux/slicers/dashboardSlice"
+import { setDashboardState } from '../redux/slicers/dashboardSlice'
 
-const NewBoardModal = ({ setShowNewBoardModal, projectId }) => {
-    const [boardTitle, setBoardTitle] = useState("")
+const NewProjectModal = ({ setShowNewProjectModal }) => {
+    const [projectTitle, setProjectTitle] = useState("")
     const user = useSelector((state) => state.auth.user)
     const dispatch = useDispatch()
-    
+
     const handleSubmit = async (e) => {
-      e.preventDefault()
-
-      try {
-        const response = await fetch('http://localhost:8000/dashboard/saveboard', {
-          method: 'POST',
-          body: JSON.stringify({ boardTitle, createdUser: user.userId, projectId }),
-          headers: { 'Content-Type': 'application/json' },
-        })
-
-        if (!response.ok) {
-          console.log('Something went wrong...')
-        } else {
-          setShowNewBoardModal(false)
-          dispatch(setDashboardState())
-        }
-      } catch (error) {
-        console.log(error);
-      }
+        e.preventDefault()
+        
+        try {
+            const response = await fetch('http://localhost:8000/dashboard/savenewproject', {
+              method: 'POST',
+              body: JSON.stringify({ projectTitle, createdUser: user.userId }),
+              headers: { 'Content-Type': 'application/json' },
+            })
+    
+            if (!response.ok) {
+              console.log('Something went wrong...')
+            } else {
+              setShowNewProjectModal(false)
+              dispatch(setDashboardState())
+            }
+          } catch (error) {
+            console.log(error);
+          }
     }
+
 
   return (
     <div className="flex justify-center items-center h-screen fixed inset-0 z-50 outline-none focus:outline-none">
@@ -39,7 +40,7 @@ const NewBoardModal = ({ setShowNewBoardModal, projectId }) => {
           <h3 className="text-2xl font-semibold">New board</h3>
           <button
             className="p-1 ml-auto bg-transparent border-0 text-gray-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-            onClick={() => setShowNewBoardModal(false)}
+            onClick={() => setShowNewProjectModal(false)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -49,21 +50,21 @@ const NewBoardModal = ({ setShowNewBoardModal, projectId }) => {
         <form onSubmit={handleSubmit}>
           <div className="px-6 py-4 flex-auto">
             <label className="block text-gray-700 text-sm font-bold mb-2">
-                Board title
+                Project title
             </label>
             <input
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type="text"
-                name="boardTitle"
-                placeholder="Board title"
-                onChange={(e) => setBoardTitle(e.target.value)}
-                value={boardTitle}
+                name="projectTitle"
+                placeholder="Project title"
+                onChange={(e) => setProjectTitle(e.target.value)}
+                value={projectTitle}
               />
           </div>
           <div className="flex items-center justify-end p-4 border-t border-solid border-slate-200 rounded-b">
             <button
               type="submit"
-              disabled={!(boardTitle)}
+              disabled={!(projectTitle)}
               className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
             >
               Save
@@ -75,6 +76,4 @@ const NewBoardModal = ({ setShowNewBoardModal, projectId }) => {
   )
 }
 
-export default NewBoardModal
-
-
+export default NewProjectModal

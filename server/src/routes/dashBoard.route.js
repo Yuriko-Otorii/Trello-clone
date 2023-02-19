@@ -14,7 +14,8 @@ const {
   deleteTaskCommentController,
   updateTaskOrderController,
   updateTaskOrderBetweenController,
-  updateBoardOrderController
+  updateBoardOrderController,
+  saveNewProjectController
 } = require('../controllers/dashBoard.controller')
 
 
@@ -36,5 +37,6 @@ router.post('/updatetaskorder', updateTaskOrderController)
 router.post('/updatetaskorderbetween', updateTaskOrderBetweenController)
 router.post('/updateboardorder', updateBoardOrderController)
 
+router.post('/savenewproject', saveNewProjectController)
 
 module.exports = router

@@ -2,16 +2,29 @@ const User = require('../models/User')
 const Board = require('../models/Board')
 const Task = require('../models/Task')
 const TaskComment = require('../models/TaskComment')
+const Project = require('../models/Project')
+
+exports.getAllProject = async (data) => {
+    return await Project.find({createdUser: data.userId})
+}
 
 exports.getAllBoards = async (data) => {
-    return await Board.find({createdUser: data.userId}).populate("tasks")
-     
+    const fetchProjectwithBoards = await Project.findOne({_id: data.projectId}).populate("boards").lean()
+    if(fetchProjectwithBoards){
+        const fetchBoardsWithTasks = await Promise.all(fetchProjectwithBoards.boards.map(async (eachBoardId) => {
+            const boradWithTasks = await Board.findOne({_id: eachBoardId}).populate("tasks").lean()
+            return boradWithTasks
+        }))
+        fetchProjectwithBoards.boards = fetchBoardsWithTasks
+    }
+    return fetchProjectwithBoards
 }
 
 exports.saveNewBoard = async (data) => {
     try {
         const newBoard = new Board(data)
-        await newBoard.save()
+        const response = await newBoard.save()
+        await Project.findOneAndUpdate({_id: data.projectId}, {"$push": {boards: response._id}}, { new: true })
     } catch (error) {
         console.log(error);
     }
@@ -30,6 +43,8 @@ exports.updateBoardTitle = async (data) => {
 exports.deleteBoard = async (data) => {
     try {
         await Board.deleteOne({_id: data.boardId })
+        await Project.findOneAndUpdate({_id: data.projectId}, {"$pull": {boards: data.boardId}})
+
     } catch (error) {
         console.log(error);
     }
@@ -37,7 +52,6 @@ exports.deleteBoard = async (data) => {
 
 exports.getTaskDetail = async (data) => {
     try {
-        // const taskWithCommentRef = await Task.findOne({_id: data.taskId}).populate({path: "postedUser", populate: {path: "User"}})
         const taskWithCommentRef = await Task.findOne({_id: data.taskId}).populate("taskComments").lean()
         const taskCommentwithUserInfo = await Promise.all(taskWithCommentRef.taskComments.map(async (eachTaskComment) => {
             const userDetail = await User.findOne({_id: eachTaskComment.postedUser}).lean()
@@ -45,8 +59,6 @@ exports.getTaskDetail = async (data) => {
         }))
         taskWithCommentRef.taskComments = taskCommentwithUserInfo
         return taskWithCommentRef
-        // console.log({taskWithCommentRef});
-        // return taskWithCommentRef
     } catch (error) {
         console.log(error);
     }
@@ -125,6 +137,24 @@ exports.updateTaskOrderBetween = async (data) => {
     try {
         await Board.findOneAndUpdate({_id: data.startBoardId}, { $set: { tasks: data.startTaskList }})
         await Board.findOneAndUpdate({_id: data.endBoardId}, { $set: { tasks: data.endTaskList }})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.updateBoardOrder = async (data) => {
+    try {
+        await Board.findOneAndUpdate({_id: data.startBoardId}, { $set: { tasks: data.startTaskList }})
+        await Board.findOneAndUpdate({_id: data.endBoardId}, { $set: { tasks: data.endTaskList }})
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.saveNewProject = async (data) => {
+    try {
+        const newProject = new Project(data)
+        await newProject.save()
     } catch (error) {
         console.log(error);
     }
