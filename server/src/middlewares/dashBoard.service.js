@@ -144,8 +144,7 @@ exports.updateTaskOrderBetween = async (data) => {
 
 exports.updateBoardOrder = async (data) => {
     try {
-        await Board.findOneAndUpdate({_id: data.startBoardId}, { $set: { tasks: data.startTaskList }})
-        await Board.findOneAndUpdate({_id: data.endBoardId}, { $set: { tasks: data.endTaskList }})
+        await Project.findOneAndUpdate({_id: data.projectId}, { $set: { boards: data.newBoardList }})
     } catch (error) {
         console.log(error);
     }

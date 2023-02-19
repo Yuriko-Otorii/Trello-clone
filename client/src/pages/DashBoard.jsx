@@ -55,7 +55,7 @@ const DashBoard = () => {
           setProject(result.allBoards)
           setProjects(result.allProjects)
           setIsLoading(false)
-          console.log(result);
+          // console.log(result);
         }
       } catch (error) {
         console.log(error);
@@ -70,22 +70,21 @@ const DashBoard = () => {
       const { destination, source, type } = result
       const startIndex = source.index
       const startId = source.droppableId
-      const endIndex = destination.index
-      const endId = destination.droppableId
       
       if(!destination) return
 
       //Dragging board
-      if(type === "board"){
-        const startBoard = project.boards.splice(startIndex, 1)
-        project.boards.splice(endIndex, 0, ...startBoard)
-
+      if(type === "board"){  
+        const newBoardList = project.boards
+        const draggedBoard = newBoardList.splice(startIndex, 1)
+        newBoardList.splice(destination.index, 0, ...draggedBoard)
+        
         try {
           const response = await fetch(
             'http://localhost:8000/dashboard/updateboardorder',
             {
               method: 'POST',
-              body: JSON.stringify({ boardList }),
+              body: JSON.stringify({ projectId: project._id, newBoardList }),
               headers: { 'Content-Type': 'application/json' },
             },
           )
@@ -97,62 +96,64 @@ const DashBoard = () => {
         } catch (error) {
           console.log(error);
         }
+        
       }
-
+      
       // Dropped in the same board
-      if(startId === endId){
-        const targetBoard = project.boards.find(eachBoard => eachBoard._id === startId)
-        const draggedTask = targetBoard.tasks.splice(startIndex, 1)
-        targetBoard.tasks.splice(endIndex, 0, ...draggedTask)
-
-        try {
-          const response = await fetch(
-            'http://localhost:8000/dashboard/updatetaskorder',
-            {
-              method: 'POST',
-              body: JSON.stringify({ boardId: targetBoard._id, newTaskList: targetBoard.tasks }),
-              headers: { 'Content-Type': 'application/json' },
-            },
-          )
-          if (!response.ok) {
-            console.log('Something went wrong...')
-          } else {
-            dispatch(setDashboardState())
+      if(type === "DEFAULT"){
+        if(startId === destination.droppableId){
+          const targetBoard = project.boards.find(eachBoard => eachBoard._id === startId)
+          const draggedTask = targetBoard.tasks.splice(startIndex, 1)
+          targetBoard.tasks.splice(destination.index, 0, ...draggedTask)
+  
+          try {
+            const response = await fetch(
+              'http://localhost:8000/dashboard/updatetaskorder',
+              {
+                method: 'POST',
+                body: JSON.stringify({ boardId: targetBoard._id, newTaskList: targetBoard.tasks }),
+                headers: { 'Content-Type': 'application/json' },
+              },
+            )
+            if (!response.ok) {
+              console.log('Something went wrong...')
+            } else {
+              dispatch(setDashboardState())
+            }
+          } catch (error) {
+            console.log(error);
           }
-        } catch (error) {
-          console.log(error);
         }
-      }
-
-      //Dropped in the other board
-      else if (startId !== endId){
-        const startBoard = project.boards.find(eachBoard => eachBoard._id === startId)
-        const endBoard = project.boards.find(eachBoard => eachBoard._id === endId)
-        const removeDraggedTask = startBoard.tasks.splice(startIndex, 1)
-        endBoard.tasks.splice(endIndex, 0, ...removeDraggedTask)
-
-        try {
-          const response = await fetch(
-            'http://localhost:8000/dashboard/updatetaskorderbetween',
-            {
-              method: 'POST',
-              body: JSON.stringify({ 
-                      startBoardId: startBoard._id,
-                      startTaskList: startBoard.tasks,
-                      endBoardId: endBoard._id,
-                      endTaskList: endBoard.tasks,
-                      
-                    }),
-              headers: { 'Content-Type': 'application/json' },
-            },
-          )
-          if (!response.ok) {
-            console.log('Something went wrong...')
-          } else {
-            dispatch(setDashboardState())
+  
+        //Dropped in the other board
+        else if (startId !== destination.droppableId){
+          const startBoard = project.boards.find(eachBoard => eachBoard._id === startId)
+          const endBoard = project.boards.find(eachBoard => eachBoard._id === destination.droppableId)
+          const removeDraggedTask = startBoard.tasks.splice(startIndex, 1)
+          endBoard.tasks.splice(destination.index, 0, ...removeDraggedTask)
+  
+          try {
+            const response = await fetch(
+              'http://localhost:8000/dashboard/updatetaskorderbetween',
+              {
+                method: 'POST',
+                body: JSON.stringify({ 
+                        startBoardId: startBoard._id,
+                        startTaskList: startBoard.tasks,
+                        endBoardId: endBoard._id,
+                        endTaskList: endBoard.tasks,                      
+                      }),
+                headers: { 'Content-Type': 'application/json' },
+              },
+            )
+            if (!response.ok) {
+              console.log('Something went wrong...')
+            } else {
+              dispatch(setDashboardState())
+            }
+          } catch (error) {
+            console.log(error);
           }
-        } catch (error) {
-          console.log(error);
         }
       }
   }
@@ -166,7 +167,7 @@ const DashBoard = () => {
           <div className="w-full flex flex-col z-40">
             <div className="flex justify-between items-center px-5 py-2 md:hidden">
               {project && 
-                <div className='text-gray-600 '>{project.projectTitle}</div>
+                <p className='text-gray-600'>{project.projectTitle}</p>
               }
               <div className="">
                 <HamburgerMenu setShowNewProjectModal={setShowNewProjectModal} />
@@ -174,7 +175,7 @@ const DashBoard = () => {
             </div>
             <div className="flex items-center px-5 py-2 hidden md:flex">
               {project && 
-                <div className='text-gray-600 '>{project.projectTitle}</div>
+                <div className='text-gray-600 text-2xl mr-4'>{project.projectTitle}</div>
               }          
               <ToolBar projects={projects} setProjectId={setProjectId} />
             </div>
@@ -207,7 +208,7 @@ const DashBoard = () => {
                 <button
                   onClick={() => setShowNewBoardModal(true)}
                   type="button"
-                  className="flex w-56 items-center justify-center inline-block px-1 py-5 border-2 border-gray-400 text-gray-500 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                  className="flex w-56 items-center justify-center inline-block px-1 py-5 border-2 border-gray-400 text-gray-500 font-medium text-xs md:text-base leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -22,15 +22,15 @@ const TaskCard = ({ taskInfo, boardId, setShowDetailModal, id, index }) => {
             <div className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 bg-white w-80 md:w-auto' onClick={() => handleShowDetailPage(taskInfo._id)}>
                 <div className='flex flex-col'>
                     <div className='flex justify-between items-center my-1 h-7'>
-                        <p className='text-xs text-gray-500'>Due date: {formattedDate}</p>
+                        <p className='text-xs md:text-base text-gray-500'>Due date: {formattedDate}</p>
                         {taskInfo.priority && (
                             <p className='text-sm py-0.5 px-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>
                         )}
                     </div>
                     <div className='flex'>
-                        <h3 className='text-lg font-bold'>{taskInfo.taskTitle}</h3>
+                        <h3 className='text-lg md:text-xl font-bold'>{taskInfo.taskTitle}</h3>
                     </div>
-                    <p className='truncate'>{taskInfo.taskDescription}</p>
+                    <p className='truncate md:text-lg'>{taskInfo.taskDescription}</p>
                     <div className='flex justify-between items-center mt-6'>
                         <div className='flex items-center'>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600 mr-1">
@@ -38,14 +38,13 @@ const TaskCard = ({ taskInfo, boardId, setShowDetailModal, id, index }) => {
                             </svg>
                             <p className='text-gray-600'>{taskInfo.taskComments.length}</p>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600    ">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-gray-600">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
                         </svg>
                     </div>
                 </div>
             </div>
         </div>
-
     )}
     </Draggable>
   )
