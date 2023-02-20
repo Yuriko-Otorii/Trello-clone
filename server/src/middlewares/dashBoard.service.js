@@ -79,9 +79,9 @@ exports.updateBoardTitle = async (data) => {
 
 exports.deleteBoard = async (data) => {
     try {
+        
         await Board.deleteOne({_id: data.boardId })
         await Project.findOneAndUpdate({_id: data.projectId}, {"$pull": {boards: data.boardId}})
-
     } catch (error) {
         console.log(error);
     }

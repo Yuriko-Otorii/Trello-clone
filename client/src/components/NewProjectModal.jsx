@@ -37,7 +37,7 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
         ></div>
       <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-4/5 md:w-1/3 bg-white outline-none focus:outline-none">
         <div className="flex items-start justify-between p-4 border-b border-solid border-slate-200 rounded-t">
-          <h3 className="text-2xl font-semibold">New board</h3>
+          <h3 className="text-2xl font-semibold">New project</h3>
           <button
             className="p-1 ml-auto bg-transparent border-0 text-gray-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
             onClick={() => setShowNewProjectModal(false)}
