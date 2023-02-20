@@ -79,9 +79,9 @@ exports.updateBoardTitle = async (data) => {
 exports.deleteBoard = async (data) => {
     try {
         const targetBoard = await Board.findOne({_id: data.boardId}).lean()
-        if(allTasks){
-            await Promise.all(allTasks.tasks.forEach(async (eachTask) => {
-                await Task.deleteOne({_id: eachTask._id })
+        if(targetBoard){
+            await Promise.all(targetBoard.tasks.map(async (eachTask) => {
+                await Task.deleteOne({_id: eachTask })
             }))
         }
         await Board.deleteOne({_id: data.boardId })
