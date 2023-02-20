@@ -81,7 +81,13 @@ exports.deleteBoard = async (data) => {
         const targetBoard = await Board.findOne({_id: data.boardId}).lean()
         if(targetBoard){
             await Promise.all(targetBoard.tasks.map(async (eachTask) => {
-                await Task.deleteOne({_id: eachTask })
+                const targetTask = await Task.findOne({ _id: eachTask })
+                if(targetTask){
+                    await Promise.all(targetTask.taskComments.map(async (eachComment) => {
+                        await TaskComment.deleteOne({ _id: eachComment })
+                    }))
+                }
+                await Task.deleteOne({ _id: eachTask })
             }))
         }
         await Board.deleteOne({_id: data.boardId })
@@ -130,6 +136,12 @@ exports.updateTask = async (data) => {
 
 exports.deleteTask = async (data) => {
     try {
+        const targetTask = await Task.findOne({ _id: data.taskId })
+        if(targetTask){
+            await Promise.all(targetTask.taskComments.map(async (eachComment) => {
+                await TaskComment.deleteOne({_id: eachComment })
+            }))
+        }
         await Task.deleteOne({ _id: data.taskId })
         await Board.findOneAndUpdate({_id: data.boardId}, {"$pull": {tasks: data.taskId}})
     } catch (error) {
