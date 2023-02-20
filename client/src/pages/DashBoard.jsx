@@ -13,6 +13,7 @@ import ToolBar from '../components/ToolBar';
 import ProjectsDropdown from '../components/ProjectsDropdown';
 import FilterTasks from '../components/FilterTasks';
 import { setDashboardState } from "../redux/slicers/dashboardSlice"
+import { setProjectIdAction } from '../redux/slicers/projectidSlice'
 
 
 const DashBoard = () => {
@@ -58,6 +59,7 @@ const DashBoard = () => {
           setProject(result.allBoards)
           setProjects(result.allProjects)
           setIsLoading(false)
+          dispatch(setProjectIdAction(""))
         }
       } catch (error) {
         console.log(error);
@@ -69,6 +71,7 @@ const DashBoard = () => {
     }else{
       fetchAllBoards(projectId, filterValue)
     }
+
   }, [dashBoardState])
 
 

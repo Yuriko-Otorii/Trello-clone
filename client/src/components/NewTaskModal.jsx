@@ -44,7 +44,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
         ></div>
       <div className="border-0 rounded-lg shadow-lg relative flex flex-col h-fit w-4/5 md:w-1/2 bg-white outline-none focus:outline-none overflow-y-scroll">
         <div className="flex items-start justify-between p-4 border-b border-solid border-slate-200 rounded-t">
-          <h3 className="text-2xl font-semibold">New task</h3>
+          <h3 className="text-2xl md:text-3xl font-semibold">New task</h3>
           <button
             className="p-1 ml-auto bg-transparent border-0 text-gray-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
             onClick={() => setShowNewTaskModal((prev) => ({
@@ -59,7 +59,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
         </div>
         <form onSubmit={handleSubmit}>
             <div className="px-6 py-4 flex-auto">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm md:text-lg font-bold mb-2">
                     Task title
                 </label>
                 <input
@@ -70,7 +70,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
                     onChange={(e) => setTaskTitle(e.target.value)}
                     value={taskTitle}
                 />
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm md:text-lg font-bold mb-2">
                     Task description
                 </label>
                 <textarea 
@@ -81,11 +81,11 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
                     onChange={(e) => setTaskDescription(e.target.value)}
                     value={taskDescription}
                 />
-                <label className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm md:text-lg font-bold mb-2">
                     Due date
                 </label>
                 <DatePicker dueDate={dueDate} setDueDate={setDueDate} />
-                <label className="block text-gray-700 text-sm font-bold ml-2 mt-5 flex items-end">
+                <label className="block text-gray-700 text-sm md:text-lg font-bold ml-2 mt-5 flex items-end md:items-center">
                     <input type="checkbox" value={isChecked} onChange={() => setIsChecked(!isChecked)} className="w-4 h-4 mr-2 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
                     High priority
                 </label>
@@ -94,7 +94,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
               <button
                   type="submit"
                   disabled={!(taskTitle && taskDescription)}
-                  className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
+                  className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm md:text-lg px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
               >
                   Save
               </button>

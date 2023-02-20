@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
-import { setProjectId } from '../redux/slicers/projectidSlice'
+import { setProjectIdAction } from '../redux/slicers/projectidSlice'
 
 const Home = () => {
   const [dueTodayTasks, setDueTodayTasks] = useState([])
@@ -40,7 +40,7 @@ const Home = () => {
   }, [])
 
   const handleLinkDashboard = (projectId) => {
-    dispatch(setProjectId(projectId))    
+    dispatch(setProjectIdAction(projectId))    
     navigate('/dashboard')
   }
 
@@ -64,7 +64,7 @@ const Home = () => {
             </button>
             </div>
             <div className='flex flex-col md:flex-row md:justify-center md:gap-4'>
-              <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 h-fit bg-gray-200 md:w-80'>
+              <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 md:w-96 h-fit bg-gray-200 md:w-80'>
                 <h2 className='font-bold text-xl md:text-2xl ml-1'>Due today</h2>
                 {
                   dueTodayTasks && dueTodayTasks.map(eachTask => (
@@ -87,7 +87,7 @@ const Home = () => {
                   ))
                 }
               </div>
-              <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 h-fit bg-gray-200 md:w-80'>
+              <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 md:w-96 h-fit bg-gray-200 md:w-80'>
                 <h2 className='font-bold text-xl md:text-2xl ml-1'>High priority</h2>
                 {
                   highPriorityTasks && highPriorityTasks.map(eachTask => (

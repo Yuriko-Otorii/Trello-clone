@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { setDashboardState } from '../redux/slicers/dashboardSlice'
+import { setProjectIdAction } from '../redux/slicers/projectidSlice'
+
 
 const ProjectsDropdown = ({ projects, setProjectId }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -12,6 +14,7 @@ const ProjectsDropdown = ({ projects, setProjectId }) => {
     setIsOpen(false)
     setProjectId(projectId)
     dispatch(setDashboardState())
+    dispatch(setProjectIdAction(projectId))    
   }
 
   return (

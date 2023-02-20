@@ -6,12 +6,12 @@ export const projectidSlice = createSlice({
         projectId: null
     },
     reducers: {
-        setProjectId: (state, action) => {
+        setProjectIdAction: (state, action) => {
             state.projectId = action.payload
         }
     }
 })
 
-export const { setProjectId } = projectidSlice.actions
+export const { setProjectIdAction } = projectidSlice.actions
 
 export default projectidSlice.reducer

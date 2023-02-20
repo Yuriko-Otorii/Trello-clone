@@ -110,7 +110,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
                         {taskInfo.priority && (
                           <p className='text-sm text-center w-16 py-0.5 px-2 py-0.5 mr-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>
                         )}
-                        <p className="text-xs md:text-sm text-gray-500">Due date: {formattedDueDate}</p>
+                        <p className="text-xs md:text-base text-gray-500">Due date: {formattedDueDate}</p>
                       </div>
                       <div className="flex justify-end items-center gap-1">
                         <svg onClick={() => setIsEdit(true)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 md:w-6 md:h-6 text-gray-500 hover:text-blue-600">
@@ -130,18 +130,18 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <h3 className="text-2xl md:text-3xl font-semibold mr-2">{taskInfo.taskTitle}</h3>                      
+                      <h3 className="text-2xl md:text-4xl font-semibold mr-2">{taskInfo.taskTitle}</h3>                      
                     </div>                      
                   </div>
                     
                   <div className="mb-5">
-                      <p className="text-lg md:text-xls">{taskInfo.taskDescription}</p>
+                      <p className="text-lg md:text-2xl">{taskInfo.taskDescription}</p>
                   </div>    
                   
                 </div>
           )}          
           <div className="mt-5">
-              <p className="text-xs md:text-sm text-gray-500">Comment</p>
+              <p className="text-xs md:text-base text-gray-500">Comment</p>
               {taskInfo.hasOwnProperty('taskComments') && taskInfo.taskComments.length > 0 && 
                 taskInfo.taskComments.map(eachComment => (
                   <EachComment
@@ -175,7 +175,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
           </div>
         </div>
         <div className="flex justify-end mt-3">
-          <p className="text-xs text-gray-500">Updated date: {formattedUpdatedDate}</p>
+          <p className="text-xs md:text-sm text-gray-500">Updated date: {formattedUpdatedDate}</p>
         </div>
       </div>
     </div>
