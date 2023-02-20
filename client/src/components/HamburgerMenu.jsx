@@ -1,12 +1,14 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
   
 const HamburgerMenu = ({ setShowNewProjectModal, setMobileMenuState, project }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <nav className="border-gray-200 rounded dark:bg-gray-900 relative">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
-        <button onClick={() => setIsOpen(true)} type="button" className="inline-flex items-center ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none">
+        <button onClick={() => setIsOpen(!isOpen)} type="button" className="inline-flex items-center ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none">
           {isOpen? 
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -22,7 +24,7 @@ const HamburgerMenu = ({ setShowNewProjectModal, setMobileMenuState, project }) 
               {project 
                 ? <>
                     <li>
-                      <a href="#" className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Home</a>
+                      <p onClick={() => navigate('/')} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Home</p>
                     </li>
                     <li>
                       <p onClick={() => {setShowNewProjectModal(true); setIsOpen(false)}} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">New project</p>
@@ -36,7 +38,7 @@ const HamburgerMenu = ({ setShowNewProjectModal, setMobileMenuState, project }) 
                   </>
                 : <>
                     <li>
-                      <a href="#" className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Home</a>
+                      <p onClick={() => navigate('/')} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Home</p>
                     </li>
                     <li>
                       <p onClick={() => {setShowNewProjectModal(true); setIsOpen(false)}} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">New project</p>

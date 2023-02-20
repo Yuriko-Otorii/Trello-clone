@@ -6,6 +6,7 @@ require('express-async-errors');
 require('./utils/mongodb')
 const authRoute = require('./routes/auth.route');
 const dashBoardRoute = require('./routes/dashBoard.route');
+const homeRoute = require('./routes/home.route')
 
 const app = express()
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 
 app.use("/api", (req, res) => res.json({message: "Health check"}))
+app.use('/', homeRoute)
 app.use('/auth', authRoute)
 app.use('/dashboard', dashBoardRoute)
 
