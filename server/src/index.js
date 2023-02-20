@@ -19,7 +19,6 @@ app.use('/', homeRoute)
 app.use('/auth', authRoute)
 app.use('/dashboard', dashBoardRoute)
 
-
 app.use((req, res, next) => {
     const err = new Error("Route not found")
     err.status = 404

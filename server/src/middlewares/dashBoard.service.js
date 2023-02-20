@@ -51,7 +51,6 @@ exports.getAllBoards = async (data) => {
             return fetchProjectwithBoards
         }
     }else{
-        console.log("else");
         return fetchProjectwithBoards
     }
 
@@ -79,7 +78,12 @@ exports.updateBoardTitle = async (data) => {
 
 exports.deleteBoard = async (data) => {
     try {
-        
+        const targetBoard = await Board.findOne({_id: data.boardId}).lean()
+        if(allTasks){
+            await Promise.all(allTasks.tasks.forEach(async (eachTask) => {
+                await Task.deleteOne({_id: eachTask._id })
+            }))
+        }
         await Board.deleteOne({_id: data.boardId })
         await Project.findOneAndUpdate({_id: data.projectId}, {"$pull": {boards: data.boardId}})
     } catch (error) {

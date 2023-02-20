@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
+import { setProjectId } from '../redux/slicers/projectidSlice'
 
 const Home = () => {
   const [dueTodayTasks, setDueTodayTasks] = useState([])
   const [highPriorityTasks, setHighPriorityTasks] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const user = useSelector((state) => state.auth.user)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -37,6 +39,11 @@ const Home = () => {
     fetchAllTasks()
   }, [])
 
+  const handleLinkDashboard = (projectId) => {
+    dispatch(setProjectId(projectId))    
+    navigate('/dashboard')
+  }
+
   return (
     <div className="flex flex-col items-center relative h-full min-h-screen w-fit min-w-full md:h-fit p-4">
       <div className="overlay absolute inset-0 -z-50 bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 opacity-40"></div>
@@ -61,7 +68,7 @@ const Home = () => {
                 <h2 className='font-bold text-xl md:text-2xl ml-1'>Due today</h2>
                 {
                   dueTodayTasks && dueTodayTasks.map(eachTask => (
-                    <div key={eachTask._id} className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 mx-auto bg-white w-72 md:w-auto' onClick={() => handleShowDetailPage(taskInfo._id)}>
+                    <div key={eachTask._id} className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 mx-auto bg-white w-72 md:w-auto'>
                       <div className='flex flex-col'>
                         <div className='flex justify-between items-center my-1 h-7'>
                           <div className='flex'>
@@ -72,7 +79,7 @@ const Home = () => {
                           )}
                         </div>
                         <p className='truncate mt-2 md:text-lg'>{eachTask.taskDescription}</p>
-                        <button  type='button' className='flex w-1/2 items-center justify-center inline-block p-1 py-2 mx-auto mt-8 mb-3 border-2 border-gray-400 text-gray-500 font-medium text-sm md:text-base leading-tight rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out'>
+                        <button onClick={()=> handleLinkDashboard(eachTask.projectId)} type='button' className='flex w-1/2 items-center justify-center inline-block p-1 py-2 mx-auto mt-8 mb-3 border-2 border-gray-400 text-gray-500 font-medium text-sm md:text-base leading-tight rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out'>
                           Check dashboard
                         </button>
                       </div>
@@ -84,7 +91,7 @@ const Home = () => {
                 <h2 className='font-bold text-xl md:text-2xl ml-1'>High priority</h2>
                 {
                   highPriorityTasks && highPriorityTasks.map(eachTask => (
-                    <div key={eachTask._id} className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 mx-auto bg-white w-72 md:w-auto' onClick={() => handleShowDetailPage(taskInfo._id)}>
+                    <div key={eachTask._id} className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 mx-auto bg-white w-72 md:w-auto' >
                       <div className='flex flex-col'>
                         <div className='flex justify-between items-center my-1 h-7'>
                           <div className='flex'>
@@ -95,7 +102,7 @@ const Home = () => {
                           )}
                         </div>
                         <p className='truncate mt-2 md:text-lg'>{eachTask.taskDescription}</p>
-                        <button  type='button' className='flex w-1/2 items-center justify-center inline-block p-1 py-2 mx-auto mt-8 mb-3 border-2 border-gray-400 text-gray-500 font-medium text-sm md:text-base leading-tight rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out'>
+                        <button onClick={()=> handleLinkDashboard(eachTask.projectId)} type='button' className='flex w-1/2 items-center justify-center inline-block p-1 py-2 mx-auto mt-8 mb-3 border-2 border-gray-400 text-gray-500 font-medium text-sm md:text-base leading-tight rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out'>
                           Check dashboard
                         </button>
                       </div>

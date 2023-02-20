@@ -8,12 +8,11 @@ import DetailPageModal from '../components/DetailPageModal'
 import HamburgerMenu from '../components/HamburgerMenu'
 import NewBoardModal from '../components/NewBoardModal'
 import NewTaskModal from '../components/NewTaskModal'
-
-import { setDashboardState } from "../redux/slicers/dashboardSlice"
 import NewProjectModal from '../components/NewProjectModal';
 import ToolBar from '../components/ToolBar';
 import ProjectsDropdown from '../components/ProjectsDropdown';
 import FilterTasks from '../components/FilterTasks';
+import { setDashboardState } from "../redux/slicers/dashboardSlice"
 
 
 const DashBoard = () => {
@@ -36,6 +35,7 @@ const DashBoard = () => {
   const [updateState, setUpdateState] = useState(false)
   const [mobileMenuState, setMobileMenuState] = useState({})
   const user = useSelector((state) => state.auth.user)
+  const projectIdFromRedux = useSelector((state) => state.projectId.projectId)
   const dispatch = useDispatch()
   const dashBoardState = useSelector((state) => state.dashboard.dashboardState)
 
@@ -64,7 +64,11 @@ const DashBoard = () => {
       }
     }
     setIsLoading(true)
-    fetchAllBoards(projectId, filterValue)
+    if(projectIdFromRedux){
+      fetchAllBoards(projectIdFromRedux, filterValue)
+    }else{
+      fetchAllBoards(projectId, filterValue)
+    }
   }, [dashBoardState])
 
 
