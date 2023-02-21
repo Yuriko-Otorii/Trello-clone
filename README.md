@@ -1,9 +1,9 @@
 # **Task manager (Trello clone)**
 
 ## What is this app?
-You can manage your tasks by using this app. This app has same feature of Trello which is drag and drop function.
-Creating mutiple project allows you to deal with different project tasks separately. 
-You can also check the tasks which due today or this week so that you never over deadline.
+You can manage your tasks by using this app. This app has same feature of Trello which is drag and drop function.   
+Creating mutiple project allows you to deal with different project tasks separately.  
+You can also check the tasks which due today or this week so that you never over deadline.  
 
 ## How to install?
 ### 
