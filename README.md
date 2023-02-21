@@ -7,18 +7,18 @@ You can also check the tasks which due today or this week so that you never over
 
 ## How to install?
 ### 
-1, Clone this repogitry on your local environment
-2, Run "npm install" command in each directory "client" and "server"
-3, Change directory which both "client" and "server" exist
+1, Clone this repogitry on your local environment  
+2, Run "npm install" command in each directory "client" and "server"  
+3, Change directory which both "client" and "server" exist  
 4, Run "npm start" command which will run both "client" and "server"
 
 ## Frameworks and database
-React + expressjs
-MongoDB(mongoose)
-Tailwind
+React + expressjs  
+MongoDB(mongoose)  
+Tailwind  
 
 ## Main libraries
-redux toolkit
-react-router-dom
-react-beautiful-dnd
+redux toolkit  
+react-router-dom  
+react-beautiful-dnd  
 
