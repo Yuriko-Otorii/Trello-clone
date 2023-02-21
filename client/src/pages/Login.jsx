@@ -33,7 +33,7 @@ const Login = () => {
         const data = await response.json()
         console.log(data)
         dispatch(setAuth(data))
-        navigate('/dashboard')
+        navigate('/')
       }
 
     } catch (error) {

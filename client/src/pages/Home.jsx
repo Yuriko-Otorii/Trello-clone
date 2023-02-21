@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 
+import { setAuth } from '../redux/slicers/authSlice';
 import { setProjectIdAction } from '../redux/slicers/projectidSlice'
 
 const Home = () => {
@@ -45,7 +46,8 @@ const Home = () => {
   }
 
   const handleLogout = () => {
-    
+    dispatch(setAuth(""))
+    navigate('/login')
   }
 
   return (

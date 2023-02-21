@@ -13,7 +13,6 @@ import ToolBar from '../components/ToolBar';
 import ProjectsDropdown from '../components/ProjectsDropdown';
 import FilterTasks from '../components/FilterTasks';
 import { setDashboardState } from "../redux/slicers/dashboardSlice"
-import { setProjectIdAction } from '../redux/slicers/projectidSlice'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -31,7 +30,6 @@ const DashBoard = () => {
   })
   const [project, setProject] = useState([])
   const [projects, setProjects] = useState([])
-  // const [projectId, setProjectId] = useState(null)
   const [filterValue, setFilterValue] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [updateState, setUpdateState] = useState(false)
