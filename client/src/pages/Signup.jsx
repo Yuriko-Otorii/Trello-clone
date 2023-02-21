@@ -11,8 +11,7 @@ const Signup = () => {
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()  
-    
+    e.preventDefault()      
 
     try {
       const response = await fetch('http://localhost:8000/auth/signup', {
@@ -46,7 +45,7 @@ const Signup = () => {
   return (
     <>
     {alert? (
-      <div className="flex p-4 my-5 mx-4 w-1/2 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+      <div className="flex p-4 pr-8 my-5 mx-4 w-fit text-sm md:text-base text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
         <svg aria-hidden="true" className="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"></path></svg>
         <div>
           {errorMessage}
@@ -56,10 +55,10 @@ const Signup = () => {
     
     <div className="flex justify-center py-10 items-center bg-white">
       <form className="bg-white mt-10" onSubmit={handleSubmit}>
-        <h1 className="text-gray-800 font-bold text-2xl mb-10 text-center">
+        <h1 className="text-gray-800 font-bold text-2xl md:text-4xl mb-10 text-center">
           Sign up
         </h1>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4 md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -83,7 +82,7 @@ const Signup = () => {
             value={username}
           />
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4 md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -107,7 +106,7 @@ const Signup = () => {
             value={email}
           />
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
+        <div className="flex items-center border-2 py-2 px-3 rounded-2xl md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -132,14 +131,14 @@ const Signup = () => {
         <button
           type="submit"
           disabled={!(email && password && username)}
-          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25"
+          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25 md:text-xl"
         >
           Sign up
         </button>
         <div className="text-center mt-5 text-sm text-blue-500 hover:text-blue-700 cursor-pointer">
-          <a href="/login" >
+          <p onClick={() => navigate('/login')} className="md:text-lg">
             Already have an account?
-          </a>
+          </p>
         </div>
       </form>
     </div>

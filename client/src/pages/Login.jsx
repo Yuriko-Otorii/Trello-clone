@@ -47,8 +47,8 @@ const Login = () => {
   return (
     <div className="flex justify-center py-10 items-center bg-white">
       <form className="bg-white mt-10" onSubmit={handleSubmit}>
-        <h1 className="text-gray-800 font-bold text-2xl mb-10 text-center">Login</h1>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">
+        <h1 className="text-gray-800 font-bold text-2xl md:text-4xl mb-10 text-center">Login</h1>
+        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4 md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -73,7 +73,7 @@ const Login = () => {
             ref={inputRef}
           />
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
+        <div className="flex items-center border-2 py-2 px-3 rounded-2xl md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 text-gray-400"
@@ -98,14 +98,14 @@ const Login = () => {
         <button
           type="submit"
           disabled={!(email && password)}
-          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25"
+          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25 md:text-xl"
         >
           Login
         </button>
         <div className='text-center mt-5 text-sm text-blue-500 hover:text-blue-700 cursor-pointer'>
-          <a href='/signup' className="">
+          <p onClick={() => navigate('/signup')} className="md:text-lg">
             Don't have an account?
-          </a>
+          </p>
         </div>
       </form>
     </div>
