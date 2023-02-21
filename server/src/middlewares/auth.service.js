@@ -1,12 +1,9 @@
 const JWT = require("jsonwebtoken")
-const crypto = require("crypto")
 const bcrypt = require('bcrypt')
 
 const User = require('../models/User')
-const Token = require('../models/Token')
-// const {jwtSecret, salt} = require("../config/config")
 const jwtSecret = process.env.JWT_SECRET
-const salt = Number(process.env.SALT)
+
 
 const signUp = async (data) => {
     const { email } = data
@@ -44,7 +41,7 @@ const signIn = async (email, password) => {
         throw error
     }
 
-    const isValid = bcrypt.compare(password, user.password)
+    const isValid = await bcrypt.compare(password, user.password)
     const token = JWT.sign({ id: user._id}, jwtSecret, { expiresIn: '1h' })
 
     if(isValid){                                
@@ -61,10 +58,4 @@ const signIn = async (email, password) => {
 }
 
 
-
-module.exports = {
-    signUp,
-    signIn,
-    // requestResetPassword,
-    // resetPassword
-}
+module.exports = { signUp, signIn }

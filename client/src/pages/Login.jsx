@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
+import { useCookies } from "react-cookie";
+
 import { setAuth } from '../redux/slicers/authSlice';
 
 const Login = () => {
@@ -9,6 +11,7 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const inputRef = useRef(null)
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   useEffect(() => {
     inputRef.current.focus()
@@ -31,7 +34,7 @@ const Login = () => {
         else console.log('Something went wrong...')
       } else {
         const data = await response.json()
-        console.log(data)
+        setCookie("token", data.token)
         dispatch(setAuth(data))
         navigate('/')
       }

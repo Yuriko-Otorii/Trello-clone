@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 import { setAuth } from '../redux/slicers/authSlice';
 import { setProjectIdAction } from '../redux/slicers/projectidSlice'
@@ -12,30 +13,32 @@ const Home = () => {
   const user = useSelector((state) => state.auth.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [cookies, setCookie, removeCookie] = useCookies();
+
+  const fetchAllTasks = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:8000/getalltasks',
+        {
+          method: 'POST',
+          body: JSON.stringify({ userId: user.userId }),
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+      if (!response.ok) {
+        console.log('Something went wrong...')
+      } else {
+        const result = await response.json()
+        setDueTodayTasks(result.allTasks.dueToday)
+        setHighPriorityTasks(result.allTasks.highPriority)
+        setIsLoading(false)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
-    const fetchAllTasks = async () => {
-      try {
-        const response = await fetch(
-          'http://localhost:8000/getalltasks',
-          {
-            method: 'POST',
-            body: JSON.stringify({ userId: user.userId }),
-            headers: { 'Content-Type': 'application/json' },
-          },
-        )
-        if (!response.ok) {
-          console.log('Something went wrong...')
-        } else {
-          const result = await response.json()
-          setDueTodayTasks(result.allTasks.dueToday)
-          setHighPriorityTasks(result.allTasks.highPriority)
-          setIsLoading(false)
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
     setIsLoading(true)
     fetchAllTasks()
   }, [])
@@ -47,6 +50,7 @@ const Home = () => {
 
   const handleLogout = () => {
     dispatch(setAuth(""))
+    removeCookie("token");
     navigate('/login')
   }
 
@@ -63,13 +67,13 @@ const Home = () => {
             </div>
           </div> 
         : <div className='flex flex-col justify-center w-4/5'>
-            <div className='flex items-center justify-between'>
-              <h1 className='text-gary-300 text-3xl'>Hello {user.username}</h1>
-              <button onClick={handleLogout} type="button" className="inline-flex items-center ml-4 py-1 px-2 text-gray-600 font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
+            <div className='flex items-center justify-between md:justify-center md:items-end md:mt-10'>
+              <h1 className='text-gary-300 text-3xl md:text-5xl'>Hello {user.username}</h1>
+              <button onClick={handleLogout} type="button" className="inline-flex items-center ml-4 py-1 px-2 md:py-1.5 text-gray-600 md:text-xl font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
                 <p>logout</p>
               </button>
             </div>
-            <div className='flex flex-col md:flex-row md:justify-center md:gap-4'>
+            <div className='flex flex-col md:mt-10 md:flex-row md:justify-center md:gap-4'>
               <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 md:w-96 h-fit bg-gray-200 md:w-80'>
                 <h2 className='font-bold text-xl md:text-2xl ml-1'>Due today</h2>
                 {
