@@ -44,6 +44,10 @@ const Home = () => {
     navigate('/dashboard')
   }
 
+  const handleLogout = () => {
+    
+  }
+
   return (
     <div className="flex flex-col items-center relative h-full min-h-screen w-fit min-w-full md:h-fit p-4">
       <div className="overlay absolute inset-0 -z-50 bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100 opacity-40"></div>
@@ -59,9 +63,9 @@ const Home = () => {
         : <div className='flex flex-col justify-center w-4/5'>
             <div className='flex items-center justify-between'>
               <h1 className='text-gary-300 text-3xl'>Hello {user.username}</h1>
-              <button onClick={() => navigate("/dashboard")} type="button" className="inline-flex items-center ml-4 py-1 px-2 text-gray-600 font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
-                <p>Dashboard</p>
-            </button>
+              <button onClick={handleLogout} type="button" className="inline-flex items-center ml-4 py-1 px-2 text-gray-600 font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
+                <p>logout</p>
+              </button>
             </div>
             <div className='flex flex-col md:flex-row md:justify-center md:gap-4'>
               <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 md:w-96 h-fit bg-gray-200 md:w-80'>
