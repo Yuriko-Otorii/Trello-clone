@@ -14,7 +14,8 @@ const {
   updateTaskOrderBetween,
   updateBoardOrder,
   saveNewProject,
-  getAllProject
+  getAllProject,
+  deleteProject
 } = require('../middlewares/dashBoard.service')
 
 exports.getAllBoardsController = async (req, res, next) => {
@@ -146,9 +147,18 @@ exports.updateBoardOrderController  = async (req, res, next) => {
 
 exports.saveNewProjectController = async (req, res, next) => {
   try {
-    await saveNewProject(req.body)
+    const newProject = await saveNewProject(req.body)
+    return res.send({ error: false, newProject })
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+exports.deleteProjectController = async (req, res, next) => {
+  try {
+    await deleteProject(req.body)
     return res.send({ error: false })
   } catch (error) {
-    
+    console.log(error);
   }
 }

@@ -130,7 +130,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <h3 className="text-2xl md:text-4xl font-semibold mr-2">{taskInfo.taskTitle}</h3>                      
+                      <h3 className="text-2xl md:text-4xl font-semibold mr-2 md:mb-2">{taskInfo.taskTitle}</h3>                      
                     </div>                      
                   </div>
                     

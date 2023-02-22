@@ -44,7 +44,7 @@ const DashBoard = () => {
     const fetchAllBoards = async (projectId, selectedValue) => {
       try {
         const response = await fetch(
-          // `https://task-manager-kymn.onrender.com/dashboard/getallboards`,
+          // `${url}/dashboard/getallboards`,
           'http://localhost:8000/dashboard/getallboards',
           {
             method: 'POST',
@@ -68,7 +68,6 @@ const DashBoard = () => {
     fetchAllBoards(projectId, filterValue)
 
   }, [dashBoardState])
-
 
   //Drag and drop logics
   const onDragEnd = async (result) => {
@@ -180,13 +179,13 @@ const DashBoard = () => {
             <div className="flex justify-between items-center w-full h-12 px-5 py-2 md:hidden">
               {project  
                 ? <p className='text-gray-900 font-bold text-lg'>{project.projectTitle}</p>
-                : <ProjectsDropdown  projects={projects}  />
+                : <ProjectsDropdown  projects={projects} />
               }
 
               {
                 mobileMenuState.selectProjects && 
                   <div className='flex items-center md:hidden'>                
-                    <ProjectsDropdown projects={projects}  />
+                    <ProjectsDropdown projects={projects} />
                     <svg onClick={() => setMobileMenuState("")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 ml-1 md:hidden text-gray-500">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -206,20 +205,31 @@ const DashBoard = () => {
             
             <div className="flex items-center px-5 py-2 w-full hidden md:flex">
               {project && 
-                <div className='flex items-center'>
-                  <svg onClick={() => navigate("/")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-3">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                  </svg>
-                  <div className='text-gray-600 text-2xl mr-4'>{project.projectTitle}</div>
-                </div>
+                <>
+                  <div className='flex items-center'>
+                    <svg onClick={() => navigate("/")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-3">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                    <div className='text-gray-600 text-2xl mr-4'>{project.projectTitle}</div>
+                    <ProjectsDropdown projects={projects} />
+                  </div>
+                </>
               }
                 <div className='flex'>
                   {!project &&
                     <div className='flex items-center'>
-                      <svg onClick={() => navigate("/")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                      <svg onClick={() => navigate("/")} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 md:w-16 h-auto">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                       </svg>
-                      <ProjectsDropdown projects={projects} />
+                      <div className="md:w-full">
+                        <ProjectsDropdown projects={projects} />
+                      </div>
+                      <button onClick={() => setShowNewProjectModal(true)} type="button" className="inline-flex items-center ml-4 py-1 px-2 md:w-full md:justify-center md:ml-0 text-gray-600 font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
+                        <p>New project</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ml-1.5">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                      </button>
                     </div>
                   }
                   {project && 
@@ -230,54 +240,54 @@ const DashBoard = () => {
               {project && 
               <>
                 <div className='flex justify-center items-center flex-col md:flex-row md:justify-start md:items-start'>
-                <div className="flex justify-center items-center pt-3 md:px-4 md:items-start md:justify-start">
-                  <DragDropContext onDragEnd={onDragEnd} >
-                    <Droppable droppableId="allBoards" direction='horizontal' type="board">
-                      {provided => 
-                          <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col gap-4 md:flex-row">
-                            {project.hasOwnProperty('boards') && project.boards.length > 0 &&
-                            project.boards.map((eachBoard, index) => (
-                              <Board
-                                key={eachBoard._id}
-                                boardInfo={eachBoard}
-                                projectId={projectId}
-                                setShowNewTaskModal={setShowNewTaskModal}
-                                setShowDetailModal={setShowDetailModal}
-                                index={index}
-                              />
-                            ))}
-                            {provided.placeholder}
-                          </div>
-                      }
-                    </Droppable>                
-                  </DragDropContext>
-                </div>
-                <div className="flex justify-center mt-10 md:mt-3">
-                  <button
-                    onClick={() => setShowNewBoardModal(true)}
-                    type="button"
-                    className="flex w-56 items-center justify-center inline-block px-1 py-5 border-2 border-gray-400 text-gray-500 font-medium text-xs md:text-base leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-5 h-5 mr-2"
+                  <div className="flex justify-center items-center pt-3 md:px-4 md:items-start md:justify-start md:w-fit">
+                    <DragDropContext onDragEnd={onDragEnd} >
+                      <Droppable droppableId="allBoards" direction='horizontal' type="board">
+                        {provided => 
+                            <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col gap-4 md:flex-row">
+                              {project.hasOwnProperty('boards') && project.boards.length > 0 &&
+                              project.boards.map((eachBoard, index) => (
+                                <Board
+                                  key={eachBoard._id}
+                                  boardInfo={eachBoard}
+                                  projectId={projectId}
+                                  setShowNewTaskModal={setShowNewTaskModal}
+                                  setShowDetailModal={setShowDetailModal}
+                                  index={index}
+                                />
+                              ))}
+                              {provided.placeholder}
+                            </div>
+                        }
+                      </Droppable>                
+                    </DragDropContext>
+                  </div>
+                  <div className="flex justify-center mt-10 md:mt-3">
+                    <button
+                      onClick={() => setShowNewBoardModal(true)}
+                      type="button"
+                      className="flex w-56 items-center justify-center px-1 py-5 border-2 border-gray-400 text-gray-500 font-medium text-xs md:text-base leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4.5v15m7.5-7.5h-15"
-                      />
-                    </svg>
-                    New board
-                  </button>
-                </div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-5 h-5 mr-2"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 4.5v15m7.5-7.5h-15"
+                        />
+                      </svg>
+                      New board
+                    </button>
+                  </div>
                 </div>
               </>
-              }    
+              }          
             </div>
             {showNewBoardModal && (
               <NewBoardModal

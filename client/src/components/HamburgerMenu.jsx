@@ -1,9 +1,39 @@
 import { useState } from "react"
+import { useSelector, useDispatch } from "react-redux" 
 import { useNavigate } from "react-router-dom"
+
+import { setProjectIdAction } from '../redux/slicers/projectidSlice'
+import { setDashboardState } from "../redux/slicers/dashboardSlice"
   
 const HamburgerMenu = ({ setShowNewProjectModal, setMobileMenuState, project }) => {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
+
+  const projectId = useSelector((state) => state.projectId.projectId)
+  const dispatch = useDispatch()
+
+  const handleDeleteProject = async () => {
+    const msg = `Are you sure delete this project?`
+        const result = confirm(msg)
+        if(result){
+            try {
+                const response = await fetch('http://localhost:8000/dashboard/deleteproject', {
+                  method: 'POST',
+                  body: JSON.stringify({ projectId }),
+                  headers: { 'Content-Type': 'application/json' },
+                })
+                
+                if (!response.ok) {
+                  console.log('Something went wrong...')
+                } else {
+                  dispatch(setProjectIdAction(projectId))    
+                  dispatch(setDashboardState())    
+                }
+              } catch (error) {
+                console.log(error);
+              }
+        }
+  }
 
   return (
     <nav className="border-gray-200 rounded dark:bg-gray-900 relative">
@@ -27,13 +57,16 @@ const HamburgerMenu = ({ setShowNewProjectModal, setMobileMenuState, project }) 
                       <p onClick={() => navigate('/')} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Home</p>
                     </li>
                     <li>
-                      <p onClick={() => {setShowNewProjectModal(true); setIsOpen(false)}} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">New project</p>
-                    </li>
-                    <li>
                       <p onClick={() => {setMobileMenuState({selectProjects: true}); setIsOpen(false)}} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Select projects</p>
                     </li>
                     <li>
                       <p onClick={() => {setMobileMenuState({filterTasks: true}); setIsOpen(false)}} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Filter tasks</p>
+                    </li>
+                    <li>
+                      <p onClick={() => {setShowNewProjectModal(true); setIsOpen(false)}} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">New project</p>
+                    </li>
+                    <li>
+                      <p onClick={handleDeleteProject} className="block py-2 p-4 md:px-10 md:py-3 text-gray-700 underline rounded hover:bg-gray-700 md:hover:bg-gray-300">Delete project</p>
                     </li>
                   </>
                 : <>

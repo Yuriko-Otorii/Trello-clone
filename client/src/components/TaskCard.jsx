@@ -19,7 +19,7 @@ const TaskCard = ({ taskInfo, boardId, setShowDetailModal, id, index }) => {
     <Draggable draggableId={id} index={index}> 
     {provided => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-            <div className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 bg-white w-80 md:w-auto' onClick={() => handleShowDetailPage(taskInfo._id)}>
+            <div className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 bg-white w-72 md:w-68' onClick={() => handleShowDetailPage(taskInfo._id)}>
                 <div className='flex flex-col'>
                     <div className='flex justify-between items-center my-1 h-7'>
                         <p className='text-xs md:text-base text-gray-500'>Due date: {formattedDate}</p>

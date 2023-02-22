@@ -14,10 +14,10 @@ const FilterTasks = ({ setFilterValue, setMobileMenuState }) => {
     }
 
   return (
-    <div className="container mx-auto relative md:w-36">
+    <div className="container mx-auto relative md:w-36 md:ml-2">
         <div className='flex items-center'>           
           <button onClick={() => setIsOpen(!isOpen)} type="button" className="inline-flex items-center p-1 px-2 text-gray-600 font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
-            <p>Filter tasks</p>
+            <p className='whitespace-nowrap'>Filter tasks</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 ml-3">
               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
             </svg>

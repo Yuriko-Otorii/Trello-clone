@@ -72,8 +72,11 @@ const Home = () => {
               <button onClick={handleLogout} type="button" className="inline-flex items-center ml-4 py-1 px-2 md:py-1.5 text-gray-600 md:text-xl font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none">
                 <p>logout</p>
               </button>
+              <button onClick={()=> handleLinkDashboard()} type="button" className="inline-flex items-center justify-center w-1/2 md:w-fit ml-4 mt-5 py-3 px-2 md:py-1.5 text-gray-600 md:text-xl font-medium rounded-lg border-2 border-gray-300 hover:bg-gray-300 focus:outline-none hidden md:block">
+                <p>Go dashboard</p>
+              </button>
             </div>
-            <div className='flex flex-col items-center md:mt-10 md:flex-row md:justify-center md:gap-4'>
+            <div className='flex flex-col items-center md:mt-10 md:flex-row md:justify-center md:items-start md:gap-4'>
               <div className='py-3 px-4 mt-5 md:display-inline rounded-lg shadow-lg w-80 md:w-96 h-fit bg-gray-200 md:w-80'>
                 <h2 className='font-bold text-xl md:text-2xl ml-1'>Due today</h2>
                 {

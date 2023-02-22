@@ -42,6 +42,9 @@ exports.getAllBoards = async (data) => {
             fetchProjectwithBoards.boards.map(eachBoard => {
                 const newTaskList = eachBoard.tasks.filter(eachTask => {
                     const dueDate = new Date(eachTask.dueDate)
+                    if(today.toDateString() === dueDate.toDateString()){
+                        return eachTask
+                    }
                     return dueDate >= today && dueDate <= weekAhead
                 })
                 return eachBoard.tasks = newTaskList
@@ -206,7 +209,35 @@ exports.updateBoardOrder = async (data) => {
 exports.saveNewProject = async (data) => {
     try {
         const newProject = new Project(data)
-        await newProject.save()
+        const createdProject = await newProject.save()
+        return createdProject
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+exports.deleteProject = async (data) => {
+    try {
+        const targetProject = await Project.findOne({_id: data.projectId}).lean()
+        if(targetProject){
+            await Promise.all(targetProject.boards.map(async (eachBoard) => {
+                const targetBoard = await Board.findOne({ _id: eachBoard })
+                if(targetBoard){
+                    await Promise.all(targetBoard.tasks.map(async (eachTask) => {
+                        const targetTask = await Task.findOne({ _id: eachTask })
+                        if(eachTask){
+                            await Promise.all(targetTask.taskComments.map(async (eachComment) => {
+                                await TaskComment.deleteOne({ _id: eachComment })
+                            }))
+                        }
+                        await Task.deleteOne({ _id: eachTask })
+                    }))
+                }
+                await Board.deleteOne({ _id: eachBoard })
+            }))
+        }
+        await Project.deleteOne({ _id: data.projectId })
+
     } catch (error) {
         console.log(error);
     }

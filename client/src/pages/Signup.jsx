@@ -34,7 +34,6 @@ const Signup = () => {
         }
       } else {
         const data = await response.json()
-        console.log(data.token)
         navigate('/login')
       }
     } catch (error) {
@@ -121,7 +120,7 @@ const Signup = () => {
           </svg>
           <input
             className="pl-2 outline-none border-none"
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}

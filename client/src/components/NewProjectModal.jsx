@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setDashboardState } from '../redux/slicers/dashboardSlice'
+import { setProjectIdAction } from '../redux/slicers/projectidSlice'
 
 const NewProjectModal = ({ setShowNewProjectModal }) => {
     const [projectTitle, setProjectTitle] = useState("")
@@ -21,8 +22,12 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
             if (!response.ok) {
               console.log('Something went wrong...')
             } else {
+              const result = await response.json()
+              console.log(result.newProject._id);
               setShowNewProjectModal(false)
               dispatch(setDashboardState())
+              dispatch(setProjectIdAction(result.newProject._id))    
+
             }
           } catch (error) {
             console.log(error);
@@ -37,7 +42,7 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
         ></div>
       <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-4/5 md:w-1/3 bg-white outline-none focus:outline-none">
         <div className="flex items-start justify-between p-4 border-b border-solid border-slate-200 rounded-t">
-          <h3 className="text-2xl font-semibold">New project</h3>
+          <h3 className="text-2xl md:text-3xl font-semibold">New project</h3>
           <button
             className="p-1 ml-auto bg-transparent border-0 text-gray-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
             onClick={() => setShowNewProjectModal(false)}
@@ -49,11 +54,11 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="px-6 py-4 flex-auto">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
+            <label className="block text-gray-700 text-sm md:text-xl font-bold mb-2">
                 Project title
             </label>
             <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline md:text-xl"
                 type="text"
                 name="projectTitle"
                 placeholder="Project title"
@@ -65,7 +70,7 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
             <button
               type="submit"
               disabled={!(projectTitle)}
-              className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
+              className="bg-emerald-400 text-white active:bg-emerald-600 uppercase text-sm md:text-xl px-5 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 disabled:opacity-50"
             >
               Save
             </button>

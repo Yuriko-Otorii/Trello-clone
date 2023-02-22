@@ -15,7 +15,7 @@ const Login = () => {
 
   useEffect(() => {
     inputRef.current.focus()
-  })
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -88,7 +88,7 @@ const Login = () => {
           </svg>
           <input
             className="pl-2 outline-none border-none"
-            type="text"
+            type="password"
             name="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}

@@ -65,7 +65,7 @@ const Board = ({ setShowNewTaskModal, boardInfo, projectId, setShowDetailModal, 
     <Draggable draggableId={boardInfo._id} index={index}>
         {provided => (
             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                <div className='py-3 px-4 m-auto mb-4 md:m-0 md:display-inline rounded-lg shadow-lg w-full h-fit bg-gray-200 md:w-80'>
+                <div className='py-3 px-4 m-auto mb-4 md:m-0 md:display-inline rounded-lg shadow-lg w-80 h-fit bg-gray-200'>
                     <div className='flex flex-col'>
                         <div className='flex justify-between items-center h-8'>
                             {isTitleEdit
