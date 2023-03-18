@@ -44,8 +44,7 @@ const DashBoard = () => {
     const fetchAllBoards = async (projectId, selectedValue) => {
       try {
         const response = await fetch(
-          // `${url}/dashboard/getallboards`,
-          'http://localhost:8000/dashboard/getallboards',
+          `https://task-manager-kymn.onrender.com/dashboard/getallboards`,
           {
             method: 'POST',
             body: JSON.stringify({ projectId, userId: user.userId, selectedValue }),
@@ -85,7 +84,7 @@ const DashBoard = () => {
         
         try {
           const response = await fetch(
-            'http://localhost:8000/dashboard/updateboardorder',
+            'https://task-manager-kymn.onrender.com/dashboard/updateboardorder',
             {
               method: 'POST',
               body: JSON.stringify({ projectId: project._id, newBoardList }),
@@ -112,7 +111,7 @@ const DashBoard = () => {
   
           try {
             const response = await fetch(
-              'http://localhost:8000/dashboard/updatetaskorder',
+              'https://task-manager-kymn.onrender.com/dashboard/updatetaskorder',
               {
                 method: 'POST',
                 body: JSON.stringify({ boardId: targetBoard._id, newTaskList: targetBoard.tasks }),
@@ -138,7 +137,7 @@ const DashBoard = () => {
   
           try {
             const response = await fetch(
-              'http://localhost:8000/dashboard/updatetaskorderbetween',
+              'https://task-manager-kymn.onrender.com/dashboard/updatetaskorderbetween',
               {
                 method: 'POST',
                 body: JSON.stringify({ 

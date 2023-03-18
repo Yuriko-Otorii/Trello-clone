@@ -19,7 +19,7 @@ const EachComment = ({ eachComment, taskId, setInfoState, infoState }) => {
         e.preventDefault()
         try {
             const response = await fetch(
-                'http://localhost:8000/dashboard/updatetaskcomment',
+                'https://task-manager-kymn.onrender.com/dashboard/updatetaskcomment',
                 {
                   method: 'POST',
                   body: JSON.stringify({
@@ -48,7 +48,7 @@ const EachComment = ({ eachComment, taskId, setInfoState, infoState }) => {
         const result = confirm(msg)
         if(result){
             try {
-                const response = await fetch('http://localhost:8000/dashboard/deletetaskcomment', {
+                const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/deletetaskcomment', {
                   method: 'POST',
                   body: JSON.stringify({ tasCommentkId, taskId }),
                   headers: { 'Content-Type': 'application/json' },

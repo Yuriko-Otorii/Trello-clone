@@ -7,12 +7,6 @@ const Home = lazy(() => import("../pages/Home"));
 const DashBoard = lazy(() => import("../pages/DashBoard"));
 import PrivateRoute from "../auth/PrivateRoute"
 
-// const router = createBrowserRouter([
-//   {path: "/", element: <Home />},
-//   {path: "/dashboard", element: <DashBoard />},
-//   {path: "/login", element: <Login />},
-//   {path: "/signup", element: <SignUp />}
-// ])
 const router = createBrowserRouter([
   {path: "/", element: <PrivateRoute />, children: [
     {path: "/", element: <Home />},

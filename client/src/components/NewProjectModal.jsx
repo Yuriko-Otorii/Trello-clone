@@ -13,7 +13,7 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
         e.preventDefault()
         
         try {
-            const response = await fetch('http://localhost:8000/dashboard/savenewproject', {
+            const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/savenewproject', {
               method: 'POST',
               body: JSON.stringify({ projectTitle, createdUser: user.userId }),
               headers: { 'Content-Type': 'application/json' },
@@ -23,7 +23,6 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
               console.log('Something went wrong...')
             } else {
               const result = await response.json()
-              console.log(result.newProject._id);
               setShowNewProjectModal(false)
               dispatch(setDashboardState())
               dispatch(setProjectIdAction(result.newProject._id))    

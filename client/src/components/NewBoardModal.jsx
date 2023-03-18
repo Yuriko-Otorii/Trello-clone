@@ -12,7 +12,7 @@ const NewBoardModal = ({ setShowNewBoardModal, projectId }) => {
       e.preventDefault()
 
       try {
-        const response = await fetch('http://localhost:8000/dashboard/saveboard', {
+        const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/saveboard', {
           method: 'POST',
           body: JSON.stringify({ boardTitle, createdUser: user.userId, projectId }),
           headers: { 'Content-Type': 'application/json' },

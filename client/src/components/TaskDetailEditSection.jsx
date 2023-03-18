@@ -23,7 +23,7 @@ const TaskDetailEditSection = ({
 
     try {
       const response = await fetch(
-        'http://localhost:8000/dashboard/updatetask',
+        'https://task-manager-kymn.onrender.com/dashboard/updatetask',
         {
           method: 'POST',
           body: JSON.stringify({

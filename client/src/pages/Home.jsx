@@ -18,7 +18,7 @@ const Home = () => {
   const fetchAllTasks = async () => {
     try {
       const response = await fetch(
-        'http://localhost:8000/getalltasks',
+        'https://task-manager-kymn.onrender.com/getalltasks',
         {
           method: 'POST',
           body: JSON.stringify({ userId: user.userId }),

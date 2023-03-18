@@ -237,7 +237,6 @@ exports.deleteProject = async (data) => {
             }))
         }
         await Project.deleteOne({ _id: data.projectId })
-
     } catch (error) {
         console.log(error);
     }

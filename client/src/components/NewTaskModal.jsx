@@ -16,7 +16,7 @@ const NewTaskModal = ({ setShowNewTaskModal, boardId }) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://localhost:8000/dashboard/savetask', {
+            const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/savetask', {
               method: 'POST',
               body: JSON.stringify({ taskTitle, taskDescription, dueDate: dueDate, priority: isChecked, createdUser: user.userId, belongedBoard: boardId }),
               headers: { 'Content-Type': 'application/json' },

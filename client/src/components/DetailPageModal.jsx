@@ -19,7 +19,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
     useEffect(() => {
         const fetchDetailInfo = async () => {
             const response = await fetch(
-                'http://localhost:8000/dashboard/gettaskdetail',
+                'https://task-manager-kymn.onrender.com/dashboard/gettaskdetail',
                 {
                   method: 'POST',
                   body: JSON.stringify({ taskId }),
@@ -48,7 +48,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
       const result = confirm(msg)
       if(result){
           try {
-              const response = await fetch('http://localhost:8000/dashboard/deletetask', {
+              const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/deletetask', {
                 method: 'POST',
                 body: JSON.stringify({ taskId, boardId }),
                 headers: { 'Content-Type': 'application/json' },
@@ -69,7 +69,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
     const handleCommentSubmit = async (e) => {
       e.preventDefault()
       try {
-        const response = await fetch('http://localhost:8000/dashboard/savecomment', {
+        const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/savecomment', {
           method: 'POST',
           body: JSON.stringify({ postedUser: user.userId, commentBody: comment, belongedTask: taskInfo._id }),
           headers: { 'Content-Type': 'application/json' },
