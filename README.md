@@ -9,10 +9,10 @@ You can also check the tasks which due today or this week so that you never over
 https://trello-clone-mern.vercel.app
 
 # Features
--Easily move tasks between boards by drag and drop.
--Create multiple projects so that you can manage your task separately by the project.
--Set a due date and propriety and check those in my page section.
--Filtering tasks by due today, due this week, and high-priority.
+-Easily move tasks between boards by drag and drop.  
+-Create multiple projects so that you can manage your task separately by the project.  
+-Set a due date and propriety and check those in my page section.  
+-Filtering tasks by due today, due this week, and high-priority.  
 
 # Installation 
 All instructions should be done in the root directory.  
@@ -29,8 +29,8 @@ All instructions should be done in the root directory.
     ```  
 
 ## Frameworks and database
-React
-expressjs  
+React  
+Express.js  
 MongoDB(mongoose)  
 Tailwind  
 
