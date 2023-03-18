@@ -46,13 +46,14 @@ const Login = () => {
   }
 
   return (
-    <div className="flex justify-center py-10 items-center bg-white">
-      <form className="bg-white mt-10" onSubmit={handleSubmit}>
+    <div className="flex justify-center py-10 items-center">
+      <div className="overlay absolute inset-0 -z-50 bg-gradient-to-r from-green-300 to-blue-300 opacity-60"></div>
+      <form className="mt-10" onSubmit={handleSubmit}>
         <h1 className="text-gray-800 font-bold text-2xl md:text-4xl mb-10 text-center">Login</h1>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4 md:text-xl">
+        <div className="flex items-center border-2 border-gray-500 py-2 px-3 rounded-2xl mb-4 md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-400"
+            className="h-5 w-5 text-gray-700"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -65,7 +66,7 @@ const Login = () => {
             />
           </svg>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-2 outline-none border-none bg-transparent"
             type="text"
             name="email"
             placeholder="Email Address"
@@ -74,10 +75,10 @@ const Login = () => {
             ref={inputRef}
           />
         </div>
-        <div className="flex items-center border-2 py-2 px-3 rounded-2xl md:text-xl">
+        <div className="flex items-center border-2 border-gray-500 py-2 px-3 rounded-2xl md:text-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-400"
+            className="h-5 w-5 text-gray-700"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -88,7 +89,7 @@ const Login = () => {
             />
           </svg>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-2 outline-none border-none bg-transparent"
             type="password"
             name="password"
             placeholder="Password"
