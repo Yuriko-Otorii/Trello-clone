@@ -12,6 +12,12 @@ exports.signInController = async (req, res) => {
   return res.json(signInService)
 }
 
+exports.tokencheckController = async (req, res) => {
+  console.log("Token check");
+  const tokenStr = req.headers.cookie
+  console.log({tokenStr});
+  
+}
 
 
   

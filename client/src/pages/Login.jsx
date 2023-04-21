@@ -35,7 +35,7 @@ const Login = () => {
         else console.log('Something went wrong...')
       } else {
         const data = await response.json()
-        setCookie("token", data.token)
+        setCookie("token", data)
         dispatch(setAuth(data))
         navigate('/')
       }

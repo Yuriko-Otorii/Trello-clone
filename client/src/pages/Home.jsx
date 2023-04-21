@@ -85,7 +85,7 @@ const Home = () => {
                       <div className='flex flex-col'>
                         <div className='flex justify-between items-center my-1 h-7'>
                           <div className='flex'>
-                            <h3 className='text-lg md:text-xl font-bold'>{eachTask.taskTitle}</h3>
+                            <h3 className='text-lg md:text-xl font-bold truncate pr-5'>{eachTask.taskTitle}</h3>
                           </div>                  
                           {eachTask.priority && (
                               <p className='text-sm py-0.5 px-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>
@@ -105,10 +105,10 @@ const Home = () => {
                 {
                   highPriorityTasks && highPriorityTasks.map(eachTask => (
                     <div key={eachTask._id} className='px-4 py-1 rounded-lg shadow-lg h-fit my-3 mx-auto bg-white w-72 md:w-auto' >
-                      <div className='flex flex-col'>
+                      <div className='flex flex-col overflow-hidden'>
                         <div className='flex justify-between items-center my-1 h-7'>
-                          <div className='flex'>
-                            <h3 className='text-lg md:text-xl font-bold'>{eachTask.taskTitle}</h3>
+                          <div className='overflow-hidden'>
+                            <h3 className='w-full text-lg md:text-xl font-bold truncate pr-4'>{eachTask.taskTitle}</h3>
                           </div>                  
                           {eachTask.priority && (
                               <p className='text-sm py-0.5 px-2 text-red-400 border border-red-400 rounded-lg'>Priority</p>
