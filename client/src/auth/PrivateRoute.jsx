@@ -26,10 +26,8 @@ const PrivateRoute = () => {
         else console.log('Something went wrong...')
       } else {
         const data = await response.json()
-        console.log({data});
-        // setCookie("token", data)
-        // dispatch(setAuth(data))
-        // navigate('/')
+        dispatch(setAuth(data))
+        navigate('/')
       }
   
     } catch (error) {
@@ -38,18 +36,14 @@ const PrivateRoute = () => {
 
   }
 
-  // console.log(cookies.token);
-
+  if(!user){
+    return <Navigate to="/login" />
+  }
+  
   return (
     <Outlet /> 
   )
 
-  // if(!cookies.token){
-  //   return <Navigate to="/login" />
-  // }
-  // return (
-  //   <Outlet /> 
-  // )
 }
 
 export default PrivateRoute
