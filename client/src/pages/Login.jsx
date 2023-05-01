@@ -8,6 +8,7 @@ import { setAuth } from '../redux/slicers/authSlice';
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const inputRef = useRef(null)
@@ -20,9 +21,10 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
 
     try {
-      const response = await fetch(`https://task-manager-kymn.onrender.com/auth/login`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/auth/login`, {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: { 'Content-Type': 'application/json' },
@@ -31,10 +33,12 @@ const Login = () => {
       if (!response.ok) {
         if (response.status === 400) console.log('Missing credentials')
         else if (response.status === 404)
-          console.log('Invalid email and/or password')
-        else console.log('Something went wrong...')
+          alert('Invalid email and/or password')
+        else alert('Something went wrong...')
+        setIsLoading(false)
       } else {
         const data = await response.json()
+        setIsLoading(false)
         setCookie("token", data)
         dispatch(setAuth(data))
         navigate('/')
@@ -100,7 +104,7 @@ const Login = () => {
         <button
           type="submit"
           disabled={!(email && password)}
-          className="block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25 md:text-xl"
+          className={`block w-full bg-indigo-600 mt-10 py-2 rounded-2xl text-white font-semibold mb-2 disabled:opacity-25 md:text-xl ${isLoading && "loading"}`}
         >
           Login
         </button>

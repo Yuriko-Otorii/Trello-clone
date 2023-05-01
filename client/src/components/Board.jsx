@@ -15,7 +15,7 @@ const Board = ({ setShowNewTaskModal, boardInfo, projectId, setShowDetailModal, 
         e.preventDefault()
 
         try {
-            const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/updateboardtitle', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/dashboard/updateboardtitle`, {
             method: 'POST',
             body: JSON.stringify({ boardTitle, boardId: boardInfo._id}),
             headers: { 'Content-Type': 'application/json' },
@@ -44,7 +44,7 @@ const Board = ({ setShowNewTaskModal, boardInfo, projectId, setShowDetailModal, 
         const result = confirm(msg)
         if(result){
             try {
-                const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/deleteboard', {
+                const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/dashboard/deleteboard`, {
                   method: 'POST',
                   body: JSON.stringify({ boardId, projectId }),
                   headers: { 'Content-Type': 'application/json' },

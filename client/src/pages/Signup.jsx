@@ -14,7 +14,7 @@ const Signup = () => {
     e.preventDefault()      
 
     try {
-      const response = await fetch('https://task-manager-kymn.onrender.com/auth/signup', {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/auth/signup`, {
         method: 'POST',
         body: JSON.stringify({ username, email, password }),
         headers: { 'Content-Type': 'application/json' },

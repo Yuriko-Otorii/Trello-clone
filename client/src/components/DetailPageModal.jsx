@@ -19,7 +19,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
     useEffect(() => {
         const fetchDetailInfo = async () => {
             const response = await fetch(
-                'https://task-manager-kymn.onrender.com/dashboard/gettaskdetail',
+                `${import.meta.env.VITE_SERVER_PORT}/dashboard/gettaskdetail`,
                 {
                   method: 'POST',
                   body: JSON.stringify({ taskId }),
@@ -48,7 +48,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
       const result = confirm(msg)
       if(result){
           try {
-              const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/deletetask', {
+              const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/dashboard/deletetask`, {
                 method: 'POST',
                 body: JSON.stringify({ taskId, boardId }),
                 headers: { 'Content-Type': 'application/json' },
@@ -69,7 +69,7 @@ const DetailPageModal = ({ setShowDetailModal, taskId, boardId }) => {
     const handleCommentSubmit = async (e) => {
       e.preventDefault()
       try {
-        const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/savecomment', {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/dashboard/savecomment`, {
           method: 'POST',
           body: JSON.stringify({ postedUser: user.userId, commentBody: comment, belongedTask: taskInfo._id }),
           headers: { 'Content-Type': 'application/json' },

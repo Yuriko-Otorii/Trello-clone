@@ -13,7 +13,7 @@ const NewProjectModal = ({ setShowNewProjectModal }) => {
         e.preventDefault()
         
         try {
-            const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/savenewproject', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/dashboard/savenewproject`, {
               method: 'POST',
               body: JSON.stringify({ projectTitle, createdUser: user.userId }),
               headers: { 'Content-Type': 'application/json' },

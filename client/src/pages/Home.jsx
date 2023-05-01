@@ -18,7 +18,7 @@ const Home = () => {
   const fetchAllTasks = async () => {
     try {
       const response = await fetch(
-        'https://task-manager-kymn.onrender.com/getalltasks',
+        `${import.meta.env.VITE_SERVER_PORT}/getalltasks`,
         {
           method: 'POST',
           body: JSON.stringify({ userId: user.userId }),

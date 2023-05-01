@@ -30,7 +30,7 @@ app.use((error, req, res) => {
 })
 
 
-const PORT = process.env.SERVER_PORT || 8000
+const PORT = 8000
 app.listen(PORT, async () => {
     console.log(`Server listening on port ${PORT}`)
 })

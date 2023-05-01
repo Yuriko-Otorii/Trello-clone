@@ -15,7 +15,7 @@ const ToolBar = ({ setFilterValue, setShowNewProjectModal }) => {
         const result = confirm(msg)
         if(result){
             try {
-                const response = await fetch('https://task-manager-kymn.onrender.com/dashboard/deleteproject', {
+                const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/dashboard/deleteproject`, {
                   method: 'POST',
                   body: JSON.stringify({ projectId }),
                   headers: { 'Content-Type': 'application/json' },

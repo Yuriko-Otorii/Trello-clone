@@ -13,7 +13,7 @@ const PrivateRoute = () => {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await fetch(`https://task-manager-kymn.onrender.com/auth/tokencheck`, {
+      const response = await fetch(`${import.meta.env.VITE_SERVER_PORT}/auth/tokencheck`, {
         method: 'POST',
         body: JSON.stringify({ token: cookies.token }),
         headers: { 'Content-Type': 'application/json' },

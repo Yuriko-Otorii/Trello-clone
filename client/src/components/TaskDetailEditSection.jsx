@@ -23,7 +23,7 @@ const TaskDetailEditSection = ({
 
     try {
       const response = await fetch(
-        'https://task-manager-kymn.onrender.com/dashboard/updatetask',
+        `${import.meta.env.VITE_SERVER_PORT}/dashboard/updatetask`,
         {
           method: 'POST',
           body: JSON.stringify({
