@@ -41,7 +41,7 @@ const signIn = async (email, password) => {
         throw error
     }
 
-    const isValid = await bcrypt.compare(password, user.password)
+    const isValid = bcrypt.compare(password, user.password)
     const token = JWT.sign({ id: user._id}, jwtSecret, { expiresIn: '1h' })
 
     if(isValid){                                

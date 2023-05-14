@@ -14,9 +14,7 @@ exports.signInController = async (req, res) => {
 
 exports.tokencheckController = async (req, res) => {
   console.log("Token check");
-  const tokenStr = req.headers.cookie
-  console.log({tokenStr});
-  
+  const tokenStr = req.headers.cookie  
 }
 
 

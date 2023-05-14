@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 const PrivateRoute = () => {
   const user = useSelector(state => state.auth.user)
   const [cookies] = useCookies(['token']);
+  console.log(cookies.token);
 
   useEffect(() => {
     fetchUserInfo()
@@ -18,7 +19,8 @@ const PrivateRoute = () => {
         body: JSON.stringify({ token: cookies.token }),
         headers: { 'Content-Type': 'application/json' },
       })
-  
+
+      
       if (!response.ok) {
         if (response.status === 400) console.log('Missing credentials')
         else if (response.status === 404)
